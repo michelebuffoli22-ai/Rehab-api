@@ -1,12 +1,19 @@
 import notion, { databaseId } from "../lib/notion";
 
 export default async function handler(req, res) {
-  return res.status(200).json({
-    databaseId,
-    notionExists: !!notion,
-    databasesExists: !!notion.databases,
-    dataSourcesExists: !!notion.dataSources,
-    databasesKeys: notion.databases ? Object.keys(notion.databases) : null,
-    dataSourcesKeys: notion.dataSources ? Object.keys(notion.dataSources) : null,
-  });
+  try {
+    const response = await notion.databases.query({
+      database_id: databaseId,
+    });
+
+    return res.status(200).json(response.results);
+
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      error: error.message,
+      details: error.body ?? null,
+    });
+  }
 }
