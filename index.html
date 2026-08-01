@@ -586,7 +586,7 @@
        
         <div class="form-group">
           <label>🔍 Cerca esercizio</label>
-          <input type="text" id="notionSearch" placeholder="Es. clamshell, squat, tendine..." onkeydown="if(event.key==='Enter') cercaEserciziNotion()">
+          <input type="text" id="notionSearch" placeholder="Es. clamshell, squat, tendine..." >
         </div>
         <div class="grid2">
           <div class="form-group">
@@ -1232,6 +1232,49 @@
   }
 
 document.addEventListener('DOMContentLoaded', async function() {
+
+document.getElementById('notionSearch').addEventListener('input', function () {
+
+    const testo = this.value.toLowerCase().trim();
+
+    if (!testo) {
+        renderRisultati();
+        return;
+    }
+
+    const risultati = allExercises.filter(exercise => {
+
+    const searchable = [
+
+        exercise.nome,
+
+        exercise.note,
+
+        exercise.serie,
+
+        exercise.ripetizioni,
+
+        exercise.recupero,
+
+        exercise.difficolta,
+
+        ...exercise.categoria,
+
+        ...exercise.distretto,
+
+        ...exercise.strumenti
+
+    ]
+    .join(" ")
+    .toLowerCase();
+
+    return searchable.includes(testo);
+
+});
+
+    renderRisultati(risultati);
+
+});
 
   // caricaEndpointNotion();
 
