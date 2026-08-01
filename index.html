@@ -825,9 +825,9 @@
     };
   }
 
-  function endpointNotion() {
-    return document.getElementById('notionEndpoint').value.trim();
-  }
+ function endpointNotion() {
+    return window.location.origin + "/api/exercises";
+}
 
   function salvaEndpointNotion() {
     try {
