@@ -6,41 +6,44 @@ export default async function handler(req, res) {
       database_id: databaseId,
     });
 
-    const exercises = response.results.map(page => {
+    const exercises = response.results.map((page) => {
       const p = page.properties;
 
       return {
         id: page.id,
 
         nome:
-          p["Nome Esercizio"]?.title?.[0]?.plain_text ?? "",
+          p["Nome Esercizio"]?.title?.[0]?.plain_text || "",
 
         categoria:
-          p["Categoria"]?.multi_select?.map(x => x.name) ?? [],
+          p["Categoria"]?.multi_select?.map((x) => x.name) || [],
 
         distretto:
-          p["Distretto"]?.multi_select?.map(x => x.name) ?? [],
+          p["Distretto"]?.multi_select?.map((x) => x.name) || [],
+
+        contrazione:
+          p["Contrazione"]?.multi_select?.map((x) => x.name) || [],
 
         strumenti:
-          p["Strumenti"]?.multi_select?.map(x => x.name) ?? [],
+          p["Strumenti"]?.multi_select?.map((x) => x.name) || [],
 
         difficolta:
-          p["Difficoltà"]?.select?.name ?? "",
+          p["Difficoltà"]?.select?.name || "",
 
         serie:
-          p["Serie"]?.rich_text?.[0]?.plain_text ?? "",
+          p["Serie"]?.rich_text?.[0]?.plain_text || "",
 
         dosaggio:
-          p["Dosaggio"]?.rich_text?.[0]?.plain_text ?? "",
+          p["Dosaggio"]?.rich_text?.[0]?.plain_text || "",
 
         video:
-          p["Video Link"]?.url ?? "",
+          p["Video Link"]?.url || "",
 
         immagine:
-          p["Immagine Url"]?.url ?? "",
+          p["Immagine Url"]?.url || "",
 
         note:
-          p["Note Cliniche"]?.rich_text?.[0]?.plain_text ?? ""
+          p["Note Cliniche"]?.rich_text?.[0]?.plain_text || ""
       };
     });
 
