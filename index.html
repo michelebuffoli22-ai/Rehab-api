@@ -701,6 +701,7 @@
 
 <script>
   let currentCategory = 'rehab';
+  let allExercises = [];
   let exCount = 0;
   
   // Per tracciare i timer attivi ed evitare conflitti
@@ -879,6 +880,7 @@
       const data = await response.json();
       const rows = Array.isArray(data) ? data : (data.exercises || data.results || []);
       notionCache = rows.map(normalizzaEsercizioNotion);
+      allExercises = [...notionCache];
       renderRisultatiNotion();
       setNotionStatus(notionCache.length ? `${notionCache.length} esercizi trovati.` : 'Nessun esercizio trovato con questi filtri.');
     } catch(e) {
@@ -1229,21 +1231,28 @@
     });
     aggiorna();
   }
+  
+document.addEventListener('DOMContentLoaded', async function() {
 
-  document.addEventListener('DOMContentLoaded', function() {
-    caricaEndpointNotion();
-    syncExCountFromDom();
-    rinumeraEsercizi();
-    if (typeof Sortable !== 'undefined') {
-      new Sortable(document.getElementById('exList'), {
-        animation: 200,
-        handle: '.drag-handle',
-        ghostClass: 'sortable-ghost',
-        chosenClass: 'sortable-chosen',
-        onEnd: rinumeraEsercizi
-      });
-    }
-  });
+  caricaEndpointNotion();
+
+  await cercaEserciziNotion();
+
+  syncExCountFromDom();
+
+  rinumeraEsercizi();
+
+  if (typeof Sortable !== 'undefined') {
+    new Sortable(document.getElementById('exList'), {
+      animation: 200,
+      handle: '.drag-handle',
+      ghostClass: 'sortable-ghost',
+      chosenClass: 'sortable-chosen',
+      onEnd: rinumeraEsercizi
+    });
+  }
+
+});
 
   /* ── SALVA COME BASE ── */
   function salvaBase() {
