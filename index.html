@@ -880,7 +880,7 @@
       const rows = Array.isArray(data) ? data : (data.exercises || data.results || []);
       notionCache = rows.map(normalizzaEsercizioNotion);
       allExercises = [...notionCache];
-      renderRisultatiNotion();
+      renderRisultati();
       setNotionStatus(notionCache.length ? `${notionCache.length} esercizi trovati.` : 'Nessun esercizio trovato con questi filtri.');
     } catch(e) {
       setNotionStatus('Non riesco a leggere Notion. Controlla endpoint, CORS e funzione server.', true);
@@ -888,10 +888,10 @@
     }
   }
 
-  function renderRisultatiNotion() {
+  function renderRisultati(lista = allExercises) {
     const container = document.getElementById('notionResults');
     container.innerHTML = '';
-    notionCache.forEach((exercise, index) => {
+     lista.forEach((exercise, index) => {
       const meta = [
         exercise.distretto.join(', '),
         exercise.categoria.join(', '),
