@@ -298,28 +298,28 @@
 
 .btn-refresh-library{
 
-    width:42px;
-    height:42px;
+    width:34px;
+    height:34px;
 
     border:none;
 
-    border-radius:12px;
+    border-radius:10px;
+
+    background:transparent;
+
+    color:rgba(255,255,255,.75);
 
     cursor:pointer;
 
-    background:rgba(255,255,255,.06);
-
-    color:white;
-
-    font-size:18px;
-
-    transition:.2s;
+    transition:all .2s ease;
 
 }
 
 .btn-refresh-library:hover{
 
-    background:#2563eb;
+    background:rgba(255,255,255,.08);
+
+    color:white;
 
     transform:rotate(90deg);
 
@@ -591,24 +591,33 @@ overflow: hidden;
   }
   .s-reps { display: flex; gap: 5px; padding: 0 14px 10px; flex-wrap: wrap; }
 
-  .library-title{
+  .library-toolbar{
 
-    display:inline-flex;
+    display:flex;
+    justify-content:space-between;
     align-items:center;
 
     padding:10px 14px;
 
-    border-radius:12px;
+    background:rgba(255,255,255,.045);
 
-    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.06);
 
-    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
 
-    font-size:16px;
+    margin-bottom:18px;
 
-    font-weight:700;
+}
 
-    letter-spacing:.08em;
+ .library-title{
+
+    font-size:15px;
+
+    font-weight:600;
+
+    letter-spacing:.04em;
+
+    color:rgba(255,255,255,.78);
 
 }
   
@@ -676,6 +685,56 @@ overflow: hidden;
     display: block; font-style: normal; font-size: 9.5px; font-weight: 800;
     letter-spacing: 1.2px; color: #b45309; text-transform: uppercase; margin-bottom: 4px;
   }
+
+  .library-toolbar{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:12px 16px;
+
+    margin-bottom:18px;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.06);
+
+}
+
+.library-title{
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:rgba(255,255,255,.78);
+
+}
+
+.library-icon{
+
+    font-size:14px;
+
+    opacity:.8;
+
+}
+
+.library-count{
+
+    margin-top:5px;
+
+    font-size:12px;
+
+    color:rgba(255,255,255,.45);
+
+}
 
   /* Sezione Informazioni Generali */
   .s-general {
@@ -866,17 +925,31 @@ overflow: hidden;
     </div>
 
     <div>
-     <div class="library-title-bar">
+   <div class="library-toolbar">
 
-    <div class="library-title">
-    📚 EXERCISE LIBRARY
-</div>
+    <div>
+
+        <div class="library-title">
+
+            <span class="library-icon">▦</span>
+
+            <span>Exercise Library</span>
+
+        </div>
+
+        <div class="library-count" id="notionCount">
+            0 esercizi trovati
+        </div>
+
+    </div>
 
     <button
         class="btn-refresh-library"
         title="Aggiorna libreria"
         onclick="cercaEserciziNotion()">
+
         ↻
+
     </button>
 
 </div>
@@ -1209,7 +1282,7 @@ console.table(allExercises);
 console.log("Primo esercizio:");
 console.log(allExercises[0]);
       renderRisultati();
-      setNotionStatus(notionCache.length ? `${notionCache.length} esercizi trovati.` : 'Nessun esercizio trovato con questi filtri.');
+      setNotionStatus(notionCache.length ? `${notionCache.length} risultati.` : 'Nessun esercizio trovato con questi filtri.');
     } catch(e) {
       setNotionStatus('Non riesco a leggere Notion. Controlla endpoint, CORS e funzione server.', true);
       console.error(e);
