@@ -912,7 +912,6 @@
       `;
     });
   }
-
 function applicaFiltri() {
 
     const testo = document
@@ -921,19 +920,30 @@ function applicaFiltri() {
         .toLowerCase()
         .trim();
 
-    if (testo === "") {
-        renderRisultati();
-        return;
-    }
+    const distretto = document
+        .getElementById("notionDistretto")
+        .value;
 
-    const risultati = allExercises.filter(exercise => {
+    let risultati = [...allExercises];
 
-        return (
+    // Ricerca testuale
+    if (testo !== "") {
+
+        risultati = risultati.filter(exercise =>
             exercise.nome.toLowerCase().includes(testo) ||
             exercise.note.toLowerCase().includes(testo)
         );
 
-    });
+    }
+
+    // Filtro distretto
+    if (distretto !== "") {
+
+        risultati = risultati.filter(exercise =>
+            exercise.distretto.includes(distretto)
+        );
+
+    }
 
     renderRisultati(risultati);
 
