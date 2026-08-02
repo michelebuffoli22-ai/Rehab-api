@@ -923,12 +923,29 @@ function renderRisultati(lista = allExercises) {
 
         container.innerHTML += `
             <div class="notion-result">
-                <div class="notion-result-title">${escapeHtml(exercise.nome)}</div>
-                <div class="notion-result-meta">${escapeHtml(meta || '')}</div>
-                ${notePreview ? `<div class="notion-result-note">${escapeHtml(notePreview)}</div>` : ''}
-                <button class="btn-add-from-notion" onclick="aggiungiEsercizioDaNotion('${exercise.id}')">
-                    Aggiungi alla scheda
-                </button>
+                <div class="notion-result-header">
+
+    <div class="notion-result-title">
+        ${escapeHtml(exercise.nome)}
+    </div>
+
+    <button
+        class="btn-add-from-notion"
+        onclick="aggiungiEsercizioDaNotion('${exercise.id}')">
+
+        +
+
+    </button>
+
+</div>
+
+<div class="notion-result-meta">
+    ${escapeHtml(meta)}
+</div>
+
+${notePreview
+    ? `<div class="notion-result-note">${escapeHtml(notePreview)}</div>`
+    : ""}
             </div>
         `;
 
