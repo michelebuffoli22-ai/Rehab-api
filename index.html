@@ -1233,14 +1233,9 @@
 
 document.addEventListener('DOMContentLoaded', async function() {
 
-document.getElementById('notionSearch').addEventListener('input', function () {
-
-    const testo = this.value.toLowerCase().trim();
-
-    if (!testo) {
-        renderRisultati();
-        return;
-    }
+document
+.getElementById("notionSearch")
+.addEventListener("input", aggiornaLista);
 
     const risultati = allExercises.filter(exercise => {
 
