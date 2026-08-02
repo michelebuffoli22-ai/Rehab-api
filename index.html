@@ -977,6 +977,19 @@ if (categoria !== "") {
     );
 
 }
+
+// Filtro difficoltà 
+const difficolta = document
+    .getElementById("notionDifficolta")
+    .value;
+
+if (difficolta !== "") {
+
+    risultati = risultati.filter(exercise =>
+        exercise.difficolta === difficolta
+    );
+
+}
     renderRisultati(risultati);
 
 }
