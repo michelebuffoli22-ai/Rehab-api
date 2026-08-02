@@ -815,6 +815,7 @@
     const strumenti = normalizzaListaNotion(raw['Strumenti'] || raw.strumenti);
     const difficolta = raw['Difficoltà'] || raw.difficolta || '';
     return {
+      id: raw.id,
       nome,
       serie,
       ripetizioni: dosaggio,
