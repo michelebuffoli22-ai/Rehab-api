@@ -595,7 +595,7 @@
         <div class="grid2">
           <div class="form-group">
             <label>Distretto</label>
-            <select id="notionDistretto">
+            <select id="notionDistretto" onchange="applicaFiltri()">
               <option value="">Tutti</option>
               <option>Anca</option><option>Ginocchio</option><option>Caviglia</option><option>Piede</option>
               <option>Spalla</option><option>Cervicale</option><option>Lombare</option><option>Dorsale</option>
@@ -615,7 +615,7 @@
         </div>
         <div class="form-group">
           <label>Categoria</label>
-          <select id="notionCategoria">
+          <select id="notionCategoria" onchange="applicaFiltri()">
             <option value="">Tutte</option>
             <option>Rinforzo</option><option>Mobilità</option><option>Isometria</option><option>Controllo motorio</option>
             <option>Equilibrio/Propriocezione</option><option>Pliometria</option><option>Return to Run</option>
@@ -944,7 +944,17 @@ function applicaFiltri() {
         );
 
     }
+const categoria = document
+    .getElementById("notionCategoria")
+    .value;
 
+if (categoria !== "") {
+
+    risultati = risultati.filter(exercise =>
+        exercise.categoria.includes(categoria)
+    );
+
+}
     renderRisultati(risultati);
 
 }
