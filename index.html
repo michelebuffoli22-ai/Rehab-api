@@ -695,6 +695,23 @@ overflow: hidden;
     display: block; font-style: normal; font-size: 9.5px; font-weight: 800;
     letter-spacing: 1.2px; color: #b45309; text-transform: uppercase; margin-bottom: 4px;
   }
+.grid3{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr 1fr;
+
+    gap:14px;
+
+    margin-top:14px;
+
+}
+
+.grid3 .form-group{
+
+    margin-bottom:0;
+
+}
 
   .library-toolbar{
 
@@ -962,51 +979,69 @@ overflow: hidden;
 
     </button>
 
+<div class="grid3">
+
+    <div class="form-group">
+
+        <select id="notionDistretto" onchange="applicaFiltri()">
+            <option value="">Distretto</option>
+
+            <option>Anca</option>
+            <option>Ginocchio</option>
+            <option>Caviglia</option>
+            <option>Piede</option>
+            <option>Spalla</option>
+            <option>Cervicale</option>
+            <option>Lombare</option>
+            <option>Dorsale</option>
+            <option>Glutei</option>
+            <option>Quadricipite</option>
+            <option>Ischiocrurali</option>
+            <option>Polpaccio</option>
+            <option>Core</option>
+            <option>Runner</option>
+            <option>Gomito</option>
+            <option>Adduttori</option>
+
+        </select>
+
+    </div>
+
+    <div class="form-group">
+
+        <select id="notionCategoria" onchange="applicaFiltri()">
+
+            <option value="">Categoria</option>
+
+            <option>Rinforzo</option>
+            <option>Mobilità</option>
+            <option>Isometria</option>
+            <option>Controllo motorio</option>
+            <option>Equilibrio/Propriocezione</option>
+            <option>Pliometria</option>
+            <option>Return to Run</option>
+            <option>Running Drills</option>
+            <option>Riscaldamento</option>
+
+        </select>
+
+    </div>
+
+    <div class="form-group">
+
+        <select id="notionDifficolta" onchange="applicaFiltri()">
+
+            <option value="">Difficoltà</option>
+
+            <option>Bassa</option>
+            <option>Media</option>
+            <option>Alta</option>
+
+        </select>
+
+    </div>
+
 </div>
-      <div class="notion-panel">
-       
-        <div class="form-group">
-          <label>🔍 Cerca esercizio</label>
-          <input
-    type="text"
-    id="notionSearch"
-    placeholder="Es. clamshell, squat, tendine..."
-    oninput="applicaFiltri()">
-        </div>
-        <div class="grid2">
-          <div class="form-group">
-            <label>Distretto</label>
-            <select id="notionDistretto" onchange="applicaFiltri()">
-              <option value="">Tutti</option>
-              <option>Anca</option><option>Ginocchio</option><option>Caviglia</option><option>Piede</option>
-              <option>Spalla</option><option>Cervicale</option><option>Lombare</option><option>Dorsale</option>
-              <option>Glutei</option><option>Quadricipite</option><option>Ischiocrurali</option><option>Polpaccio</option>
-              <option>Core</option><option>Runner</option><option>Gomito</option><option>Adduttori</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Difficoltà</label>
-            <select id="notionDifficolta" onchange="applicaFiltri()">
-              <option value="">Tutte</option>
-              <option>Bassa</option>
-              <option>Media</option>
-              <option>Alta</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Categoria</label>
-          <select id="notionCategoria" onchange="applicaFiltri()">
-            <option value="">Tutte</option>
-            <option>Rinforzo</option><option>Mobilità</option><option>Isometria</option><option>Controllo motorio</option>
-            <option>Equilibrio/Propriocezione</option><option>Pliometria</option><option>Return to Run</option>
-            <option>Running Drills</option><option>Riscaldamento</option>
-          </select>
-        </div>
-    
-        <div class="notion-status" id="notionStatus">Collega un endpoint sicuro per leggere Exercise Database senza esporre token Notion.</div>
-        <div class="notion-results" id="notionResults"></div>
-        <div id="exerciseDetail" class="exercise-detail-empty">
 
     Seleziona un esercizio per vedere i dettagli.
 
