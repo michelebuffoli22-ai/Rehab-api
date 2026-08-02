@@ -1233,67 +1233,7 @@
 
 document.addEventListener('DOMContentLoaded', async function() {
 
-document
-.getElementById("notionSearch")
-.addEventListener("input", aggiornaLista);
 
-    const risultati = allExercises.filter(exercise => {
-
-    const searchable = [
-
-        exercise.nome,
-
-        exercise.note,
-
-        exercise.serie,
-
-        exercise.ripetizioni,
-
-        exercise.recupero,
-
-        exercise.difficolta,
-
-        ...exercise.categoria,
-
-        ...exercise.distretto,
-
-        ...exercise.strumenti
-
-    ]
-    .join(" ")
-    .toLowerCase();
-
-    return searchable.includes(testo);
-
-});
-
-    renderRisultati(risultati);
-function aggiornaLista() {
-
-    const testo = document
-        .getElementById("notionSearch")
-        .value
-        .toLowerCase()
-        .trim();
-
-    let risultati = [...allExercises];
-
-    if (testo) {
-
-        risultati = risultati.filter(exercise =>
-
-            exercise.nome.toLowerCase().includes(testo) ||
-
-            exercise.note.toLowerCase().includes(testo)
-
-        );
-
-    }
-
-    renderRisultati(risultati);
-
-}
-});
 
   // caricaEndpointNotion();
 
