@@ -538,7 +538,17 @@ overflow: hidden;
     border: 1px solid rgba(255,255,255,0.1);
   }
   .s-wa-trigger:hover { background: #075e54; transform: translateY(-1px); }
+  
+.library-title-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
 
+.library-title-bar .section-label{
+    margin-bottom:0;
+}
   .s-patient-band {
     margin: 14px 14px 0;
     background: rgba(255,255,255,0.1);
@@ -835,7 +845,20 @@ overflow: hidden;
     </div>
 
     <div>
-     <div class="section-label">📚 Exercise Library</div>
+     <div class="library-title-bar">
+
+    <div class="section-label">
+        📚 EXERCISE LIBRARY
+    </div>
+
+    <button
+        class="btn-refresh-library"
+        title="Aggiorna libreria"
+        onclick="cercaEserciziNotion()">
+        ↻
+    </button>
+
+</div>
       <div class="notion-panel">
        
         <div class="form-group">
@@ -876,19 +899,7 @@ overflow: hidden;
             <option>Running Drills</option><option>Riscaldamento</option>
           </select>
         </div>
-        <div class="notion-header">
-
-    <div>
-
-        <div class="notion-title">
-            Exercise Library
-        </div>
-
-        <div class="notion-subtitle" id="notionCount">
-            0 esercizi disponibili
-        </div>
-
-    </div>
+     <div class="notion-header">
 
     <button
         class="btn-refresh-library"
