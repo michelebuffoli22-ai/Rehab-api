@@ -896,27 +896,41 @@ console.log(allExercises[0]);
       console.error(e);
     }
   }
+function renderRisultati(lista = allExercises) {
 
-  function renderRisultati(lista = allExercises) {
     const container = document.getElementById('notionResults');
     container.innerHTML = '';
-     lista.forEach((exercise, index) => {
-      const meta = [
-        exercise.distretto.join(', '),
-        exercise.categoria.join(', '),
-        exercise.difficolta
-      ].filter(Boolean).join(' · ');
-      const notePreview = exercise.note ? exercise.note.slice(0, 140) + (exercise.note.length > 140 ? '...' : '') : '';
-      container.innerHTML += `
-        <div class="notion-result">
-          <div class="notion-result-title">${escapeHtml(exercise.nome)}</div>
-          <div class="notion-result-meta">${escapeHtml(meta || 'Exercise Database')}</div>
-          ${notePreview ? `<div class="notion-result-note">${escapeHtml(notePreview)}</div>` : ''}
-          <button class="btn-add-from-notion" onclick="aggiungiEsercizioDaNotion(${index})">Aggiungi alla scheda</button>
-        </div>
-      `;
+
+    // Aggiorna il contatore
+    document.getElementById('notionStatus').textContent =
+        `${lista.length} esercizi trovati.`;
+
+    lista.forEach((exercise, index) => {
+
+        const meta = [
+            exercise.distretto.join(', '),
+            exercise.categoria.join(', '),
+            exercise.difficolta
+        ].filter(Boolean).join(' · ');
+
+        const notePreview = exercise.note
+            ? exercise.note.slice(0, 140) + (exercise.note.length > 140 ? '...' : '')
+            : '';
+
+        container.innerHTML += `
+            <div class="notion-result">
+                <div class="notion-result-title">${escapeHtml(exercise.nome)}</div>
+                <div class="notion-result-meta">${escapeHtml(meta || '')}</div>
+                ${notePreview ? `<div class="notion-result-note">${escapeHtml(notePreview)}</div>` : ''}
+                <button class="btn-add-from-notion" onclick="aggiungiEsercizioDaNotion(${index})">
+                    Aggiungi alla scheda
+                </button>
+            </div>
+        `;
+
     });
-  }
+
+}
 function applicaFiltri() {
 
     const testo = document
