@@ -41,6 +41,21 @@
     --theme-badge-bg: #2563c7;
     --theme-badge-color: #fff;
   }
+@keyframes popSuccess{
+
+    0%{
+        transform:scale(.7);
+    }
+
+    60%{
+        transform:scale(1.18);
+    }
+
+    100%{
+        transform:scale(1.12);
+    }
+
+}
 
   .theme-pain {
     --theme-deep:   #3e322a;
@@ -243,19 +258,17 @@
     border-color: rgba(37,99,235,.45);
     box-shadow: 0 8px 18px rgba(0,0,0,.25);
 }
-  .notion-result-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 6px;
+  .notion-result-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
 }
   .notion-result-title{
-    font-size:13px;
-    font-weight:700;
-    color:white;
-    line-height:1.35;
     flex:1;
+    display:flex;
+    align-items:center;
+    min-height:32px;
 }
  .notion-result-meta {
     display: flex;
@@ -360,6 +373,14 @@
 
     overflow:hidden;
 }
+.btn-add-from-notion.added{
+    background:#16a34a;
+    color:white;
+    transform:scale(1.12);
+    box-shadow:0 0 12px rgba(22,163,74,.45);
+    animation:popSuccess .25s ease;
+}
+
 .btn-add-from-notion {
     width: 32px;
     height: 32px;
@@ -381,6 +402,9 @@
     cursor: pointer;
 
     transition: all .2s ease;
+transition: all .25s ease;
+overflow: hidden;
+
 }
   .btn-add-from-notion:hover {
     background: #1d4ed8;
@@ -1155,7 +1179,7 @@ const badges = `
 
     <button
     class="btn-add-from-notion"
-    onclick="event.stopPropagation(); aggiungiEsercizioDaNotion('${exercise.id}')">
+    onclick="event.stopPropagation(); aggiungiEsercizioDaNotion('${exercise.id}', this)">
 
     +
 
@@ -1167,9 +1191,7 @@ const badges = `
     ${badges}
 </div>
 
-${notePreview
-    ? `<div class="notion-result-note">${escapeHtml(notePreview)}</div>`
-    : ""}
+
             </div>
         `;
 
@@ -1263,7 +1285,7 @@ difficolta.trim().toLowerCase()
 
 }
 
-function aggiungiEsercizioDaNotion(id) {
+function aggiungiEsercizioDaNotion(id, button){
 
     const exercise = allExercises.find(e => e.id === id);
 
@@ -1279,6 +1301,16 @@ function aggiungiEsercizioDaNotion(id) {
     );
 
     aggiorna();
+
+    button.innerHTML = "✔";
+button.classList.add("added");
+
+setTimeout(() => {
+
+    button.innerHTML = "+";
+    button.classList.remove("added");
+
+}, 5000);
 
 }
 
