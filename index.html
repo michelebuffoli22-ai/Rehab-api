@@ -586,7 +586,11 @@
        
         <div class="form-group">
           <label>🔍 Cerca esercizio</label>
-          <input type="text" id="notionSearch" placeholder="Es. clamshell, squat, tendine..." >
+          <input
+    type="text"
+    id="notionSearch"
+    placeholder="Es. clamshell, squat, tendine..."
+    oninput="filtraRicerca()">
         </div>
         <div class="grid2">
           <div class="form-group">
@@ -908,6 +912,32 @@
       `;
     });
   }
+
+  function filtraRicerca() {
+
+    const testo = document
+        .getElementById("notionSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+    if (testo === "") {
+        renderRisultati();
+        return;
+    }
+
+    const risultati = allExercises.filter(exercise => {
+
+        return (
+            exercise.nome.toLowerCase().includes(testo) ||
+            exercise.note.toLowerCase().includes(testo)
+        );
+
+    });
+
+    renderRisultati(risultati);
+
+}
 
   function aggiungiEsercizioDaNotion(index) {
     const exercise = notionCache[index];
