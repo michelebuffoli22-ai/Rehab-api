@@ -951,10 +951,27 @@ function applicaFiltri() {
     // Ricerca testuale
     if (testo !== "") {
 
-        risultati = risultati.filter(exercise =>
-            exercise.nome.toLowerCase().includes(testo) ||
-            exercise.note.toLowerCase().includes(testo)
-        );
+        risultati = risultati.filter(exercise => {
+
+    const searchableText = [
+
+        exercise.nome,
+
+        exercise.note,
+
+        exercise.distretto.join(" "),
+
+        exercise.categoria.join(" "),
+
+        exercise.strumenti.join(" "),
+
+        exercise.indicazioni || ""
+
+    ].join(" ").toLowerCase();
+
+    return searchableText.includes(testo);
+
+});
 
     }
 
