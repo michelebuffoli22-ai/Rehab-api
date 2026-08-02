@@ -298,12 +298,12 @@
 
 .btn-refresh-library{
 
-    width:36px;
-    height:36px;
+    width:42px;
+    height:42px;
 
     border:none;
 
-    border-radius:10px;
+    border-radius:12px;
 
     cursor:pointer;
 
@@ -538,7 +538,7 @@ overflow: hidden;
     border: 1px solid rgba(255,255,255,0.1);
   }
   .s-wa-trigger:hover { background: #075e54; transform: translateY(-1px); }
-  
+
 .library-title-bar{
     display:flex;
     justify-content:space-between;
@@ -590,6 +590,27 @@ overflow: hidden;
     font-size: 11px; font-weight: 700; text-decoration: none; white-space: nowrap; align-self: flex-start;
   }
   .s-reps { display: flex; gap: 5px; padding: 0 14px 10px; flex-wrap: wrap; }
+
+  .library-title{
+
+    display:inline-flex;
+    align-items:center;
+
+    padding:10px 14px;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    font-size:16px;
+
+    font-weight:700;
+
+    letter-spacing:.08em;
+
+}
   
   /* Stile Base Blocchetti Info Esercizio */
   .s-rep {
@@ -847,9 +868,9 @@ overflow: hidden;
     <div>
      <div class="library-title-bar">
 
-    <div class="section-label">
-        📚 EXERCISE LIBRARY
-    </div>
+    <div class="library-title">
+    📚 EXERCISE LIBRARY
+</div>
 
     <button
         class="btn-refresh-library"
@@ -899,18 +920,7 @@ overflow: hidden;
             <option>Running Drills</option><option>Riscaldamento</option>
           </select>
         </div>
-     <div class="notion-header">
-
-    <button
-        class="btn-refresh-library"
-        title="Aggiorna libreria"
-        onclick="cercaEserciziNotion()">
-
-        ↻
-
-    </button>
-
-</div>
+    
         <div class="notion-status" id="notionStatus">Collega un endpoint sicuro per leggere Exercise Database senza esporre token Notion.</div>
         <div class="notion-results" id="notionResults"></div>
         <div id="exerciseDetail" class="exercise-detail-empty">
