@@ -677,33 +677,30 @@ overflow: hidden;
     from { background: #ef4444; color: #fff; }
     to { background: #b91c1c; color: #fff; }
   }
-  .filters-row{
+
+  /* ===== FILTRI LIBRERIA ===== */
+
+.filters-row{
 
     display:flex;
+
     gap:12px;
+
     align-items:flex-end;
 
-}
-
-.filters-row label{
-
-    font-size:11px;
-
-    font-weight:600;
-
-    opacity:.6;
-
-    margin-bottom:5px;
+    margin-bottom:12px;
 
 }
 
-.filter-item{
+.filters-row .form-group{
 
     flex:1;
 
+    margin-bottom:0;
+
 }
 
-.filter-category{
+.filters-row .category-filter{
 
     flex:1.45;
 
@@ -1004,37 +1001,46 @@ overflow: hidden;
     placeholder="Es. clamshell, squat, tendine..."
     oninput="applicaFiltri()">
         </div>
-       <div class="filters-row">
+        <div class="filters-row">
 
-    <div class="filter-item">
-            <label>Distretto</label>
-            <select id="notionDistretto" onchange="applicaFiltri()">
-              <option value="">Tutti</option>
-              <option>Anca</option><option>Ginocchio</option><option>Caviglia</option><option>Piede</option>
-              <option>Spalla</option><option>Cervicale</option><option>Lombare</option><option>Dorsale</option>
-              <option>Glutei</option><option>Quadricipite</option><option>Ischiocrurali</option><option>Polpaccio</option>
-              <option>Core</option><option>Runner</option><option>Gomito</option><option>Adduttori</option>
-            </select>
-          </div>
-          <div class="filter-item">
-            <label>Difficoltà</label>
-            <select id="notionDifficolta" onchange="applicaFiltri()">
-              <option value="">Tutte</option>
-              <option>Bassa</option>
-              <option>Media</option>
-              <option>Alta</option>
-            </select>
-          </div>
-        </div>
-       <div class="filter-item filter-category">
-          <label>Categoria</label>
-          <select id="notionCategoria" onchange="applicaFiltri()">
-            <option value="">Tutte</option>
-            <option>Rinforzo</option><option>Mobilità</option><option>Isometria</option><option>Controllo motorio</option>
-            <option>Equilibrio/Propriocezione</option><option>Pliometria</option><option>Return to Run</option>
-            <option>Running Drills</option><option>Riscaldamento</option>
-          </select>
-        </div>
+  <div class="form-group">
+    <label>Distretto</label>
+    <select id="notionDistretto" onchange="applicaFiltri()">
+      <option value="">Tutti</option>
+      <option>Anca</option><option>Ginocchio</option><option>Caviglia</option><option>Piede</option>
+      <option>Spalla</option><option>Cervicale</option><option>Lombare</option><option>Dorsale</option>
+      <option>Glutei</option><option>Quadricipite</option><option>Ischiocrurali</option><option>Polpaccio</option>
+      <option>Core</option><option>Runner</option><option>Gomito</option><option>Adduttori</option>
+    </select>
+  </div>
+
+  <div class="form-group category-filter">
+    <label>Categoria</label>
+    <select id="notionCategoria" onchange="applicaFiltri()">
+      <option value="">Tutte</option>
+      <option>Rinforzo</option>
+      <option>Mobilità</option>
+      <option>Isometria</option>
+      <option>Controllo motorio</option>
+      <option>Equilibrio/Propriocezione</option>
+      <option>Pliometria</option>
+      <option>Return to Run</option>
+      <option>Running Drills</option>
+      <option>Riscaldamento</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Difficoltà</label>
+    <select id="notionDifficolta" onchange="applicaFiltri()">
+      <option value="">Tutte</option>
+      <option>Bassa</option>
+      <option>Media</option>
+      <option>Alta</option>
+    </select>
+  </div>
+
+</div>
     
         <div class="notion-status" id="notionStatus">Collega un endpoint sicuro per leggere Exercise Database senza esporre token Notion.</div>
         <div class="notion-results" id="notionResults"></div>
