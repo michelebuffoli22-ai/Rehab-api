@@ -640,6 +640,11 @@
     gap:12px;
 }
 
+.notion-result.selected{
+    border:1px solid #2563eb;
+    box-shadow:0 0 0 2px rgba(37,99,235,.18);
+}
+
 
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
@@ -844,6 +849,8 @@
   let allExercises = [];
   let exCount = 0;
   
+  let selectedExerciseId = null;
+
   // Per tracciare i timer attivi ed evitare conflitti
   let activeTimers = {};
 
@@ -1076,7 +1083,8 @@ const badges = `
             : '';
 
         container.innerHTML += `
-            <div class="notion-result">
+            <div class="notion-result ${selectedExerciseId === exercise.id ? 'selected' : ''}"
+     onclick="selezionaEsercizio('${exercise.id}')">
                 <div class="notion-result-header">
 
     <div class="notion-result-title">
@@ -1085,8 +1093,7 @@ const badges = `
 
     <button
     class="btn-add-from-notion"
-    title="Aggiungi alla scheda"
-    onclick="aggiungiEsercizioDaNotion('${exercise.id}')">
+    onclick="event.stopPropagation(); aggiungiEsercizioDaNotion('${exercise.id}')">
 
     +
 
@@ -1427,6 +1434,13 @@ function aggiungiEsercizioDaNotion(id) {
       `;
     });
   }
+  function selezionaEsercizio(id){
+
+    selectedExerciseId = id;
+
+    applicaFiltri();
+
+}
 
   function stampaPDF() { window.print(); }
 
