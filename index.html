@@ -263,6 +263,47 @@
     gap: 6px;
     margin-bottom: 8px;
 }
+
+.exercise-detail-card{
+    margin-top:18px;
+    padding:18px;
+    background:rgba(15,23,42,.65);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:12px;
+}
+
+.exercise-detail-card h2{
+    margin:0 0 12px;
+    font-size:18px;
+}
+
+.detail-badges{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+}
+
+.detail-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-bottom:18px;
+}
+
+.detail-grid label,
+.detail-note label{
+    display:block;
+    font-size:10px;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.45);
+    margin-bottom:4px;
+}
+
+.detail-note p{
+    margin:0;
+    line-height:1.5;
+}
 .badge {
     display: inline-flex;
     align-items: center;
@@ -1466,21 +1507,65 @@ function aggiungiEsercizioDaNotion(id) {
 }
 function renderDettaglioEsercizio(id){
 
-    const exercise = allExercises.find(e=>e.id===id);
+    const exercise = allExercises.find(e => e.id === id);
 
     if(!exercise) return;
 
-    document.getElementById("exerciseDetail").innerHTML=`
+    document.getElementById("exerciseDetail").innerHTML = `
 
-        <h3>${escapeHtml(exercise.nome)}</h3>
+        <div class="exercise-detail-card">
 
-        <p><strong>Serie:</strong> ${escapeHtml(exercise.serie)}</p>
+            <h2>${escapeHtml(exercise.nome)}</h2>
 
-        <p><strong>Ripetizioni:</strong> ${escapeHtml(exercise.ripetizioni)}</p>
+            <div class="detail-badges">
 
-        <p><strong>Recupero:</strong> ${escapeHtml(exercise.recupero)}</p>
+                ${exercise.distretto.map(d =>
+                    `<span class="badge badge-distretto">${escapeHtml(d)}</span>`
+                ).join("")}
 
-        <p><strong>Note:</strong><br>${escapeHtml(exercise.note || "-")}</p>
+                ${exercise.categoria.map(c =>
+                    `<span class="badge badge-categoria">${escapeHtml(c)}</span>`
+                ).join("")}
+
+            </div>
+
+            <div class="detail-grid">
+
+                <div>
+
+                    <label>Serie</label>
+
+                    <div>${escapeHtml(exercise.serie)}</div>
+
+                </div>
+
+                <div>
+
+                    <label>Ripetizioni</label>
+
+                    <div>${escapeHtml(exercise.ripetizioni)}</div>
+
+                </div>
+
+                <div>
+
+                    <label>Recupero</label>
+
+                    <div>${escapeHtml(exercise.recupero)}</div>
+
+                </div>
+
+            </div>
+
+            <div class="detail-note">
+
+                <label>Note cliniche</label>
+
+                <p>${escapeHtml(exercise.note || "-")}</p>
+
+            </div>
+
+        </div>
 
     `;
 
