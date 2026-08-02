@@ -898,6 +898,8 @@ console.log(allExercises[0]);
   }
 function renderRisultati(lista = allExercises) {
 
+window.risultatiCorrenti = lista;
+
     const container = document.getElementById('notionResults');
     container.innerHTML = '';
 
@@ -905,6 +907,7 @@ function renderRisultati(lista = allExercises) {
     document.getElementById('notionStatus').textContent =
         `${lista.length} esercizi trovati.`;
 
+        
     lista.forEach((exercise, index) => {
 
         const meta = [
@@ -993,19 +996,24 @@ difficolta.trim().toLowerCase()
 
 }
 
-  function aggiungiEsercizioDaNotion(index) {
-    const exercise = notionCache[index];
+function aggiungiEsercizioDaNotion(index) {
+
+    const exercise = window.risultatiCorrenti[index];
+
     if (!exercise) return;
+
     aggiungiEsercizioStrutturato(
-      exercise.nome,
-      exercise.serie,
-      exercise.ripetizioni,
-      exercise.recupero,
-      exercise.video,
-      exercise.note
+        exercise.nome,
+        exercise.serie,
+        exercise.ripetizioni,
+        exercise.recupero,
+        exercise.video,
+        exercise.note
     );
+
     aggiorna();
-  }
+
+}
 
 
   function setCategoria(cat, btn) {
