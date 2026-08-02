@@ -1273,7 +1273,31 @@ document.getElementById('notionSearch').addEventListener('input', function () {
 });
 
     renderRisultati(risultati);
+function aggiornaLista() {
 
+    const testo = document
+        .getElementById("notionSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+    let risultati = [...allExercises];
+
+    if (testo) {
+
+        risultati = risultati.filter(exercise =>
+
+            exercise.nome.toLowerCase().includes(testo) ||
+
+            exercise.note.toLowerCase().includes(testo)
+
+        );
+
+    }
+
+    renderRisultati(risultati);
+
+}
 });
 
   // caricaEndpointNotion();
