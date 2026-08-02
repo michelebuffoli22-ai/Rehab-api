@@ -967,8 +967,6 @@ const categoria = document
     .getElementById("notionCategoria")
     .value;
 
-console.log("Categoria selezionata:", categoria);
-console.log(allExercises[0].categoria);
 
 if (categoria !== "") {
 
@@ -986,7 +984,8 @@ const difficolta = document
 if (difficolta !== "") {
 
     risultati = risultati.filter(exercise =>
-        exercise.difficolta === difficolta
+        exercise.difficolta.trim().toLowerCase() ===
+difficolta.trim().toLowerCase()
     );
 
 }
