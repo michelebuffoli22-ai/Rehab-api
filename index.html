@@ -590,7 +590,7 @@
     type="text"
     id="notionSearch"
     placeholder="Es. clamshell, squat, tendine..."
-    oninput="filtraRicerca()">
+    oninput="applicaFiltri()">
         </div>
         <div class="grid2">
           <div class="form-group">
@@ -913,7 +913,7 @@
     });
   }
 
-  function filtraRicerca() {
+function applicaFiltri() {
 
     const testo = document
         .getElementById("notionSearch")
