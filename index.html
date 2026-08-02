@@ -971,7 +971,13 @@ function applicaFiltri() {
     .join(" ")
     .toLowerCase();
 
-    return searchableText.includes(testo);
+    const parole = testo
+    .split(" ")
+    .filter(Boolean);
+
+return parole.every(parola =>
+    searchableText.includes(parola)
+);
 
 });
 
