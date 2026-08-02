@@ -74,6 +74,22 @@
     top: 0;
     z-index: 100;
   }
+.exercise-detail-empty{
+
+    margin-top:18px;
+
+    padding:18px;
+
+    border:1px dashed rgba(255,255,255,.12);
+
+    border-radius:10px;
+
+    color:rgba(255,255,255,.45);
+
+    font-size:12px;
+
+}
+
   .topbar-left { display: flex; align-items: center; gap: 12px; }
   .logo-dot {
     width: 32px; height: 32px;
@@ -754,6 +770,11 @@
         </div>
         <div class="notion-status" id="notionStatus">Collega un endpoint sicuro per leggere Exercise Database senza esporre token Notion.</div>
         <div class="notion-results" id="notionResults"></div>
+        <div id="exerciseDetail" class="exercise-detail-empty">
+
+    Seleziona un esercizio per vedere i dettagli.
+
+</div>
       </div>
     </div>
 
@@ -1436,9 +1457,32 @@ function aggiungiEsercizioDaNotion(id) {
   }
   function selezionaEsercizio(id){
 
-    selectedExerciseId = id;
+    selectedExerciseId=id;
 
     applicaFiltri();
+
+    renderDettaglioEsercizio(id);
+
+}
+function renderDettaglioEsercizio(id){
+
+    const exercise = allExercises.find(e=>e.id===id);
+
+    if(!exercise) return;
+
+    document.getElementById("exerciseDetail").innerHTML=`
+
+        <h3>${escapeHtml(exercise.nome)}</h3>
+
+        <p><strong>Serie:</strong> ${escapeHtml(exercise.serie)}</p>
+
+        <p><strong>Ripetizioni:</strong> ${escapeHtml(exercise.ripetizioni)}</p>
+
+        <p><strong>Recupero:</strong> ${escapeHtml(exercise.recupero)}</p>
+
+        <p><strong>Note:</strong><br>${escapeHtml(exercise.note || "-")}</p>
+
+    `;
 
 }
 
