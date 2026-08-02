@@ -884,6 +884,11 @@
       const rows = Array.isArray(data) ? data : (data.exercises || data.results || []);
       notionCache = rows.map(normalizzaEsercizioNotion);
       allExercises = [...notionCache];
+      console.log("=== ALL EXERCISES ===");
+console.table(allExercises);
+
+console.log("Primo esercizio:");
+console.log(allExercises[0]);
       renderRisultati();
       setNotionStatus(notionCache.length ? `${notionCache.length} esercizi trovati.` : 'Nessun esercizio trovato con questi filtri.');
     } catch(e) {
