@@ -948,6 +948,9 @@ const categoria = document
     .getElementById("notionCategoria")
     .value;
 
+console.log("Categoria selezionata:", categoria);
+console.log(allExercises[0].categoria);
+
 if (categoria !== "") {
 
     risultati = risultati.filter(exercise =>
