@@ -423,41 +423,63 @@
     overflow:hidden;
 }
 .btn-add-from-notion.added{
+
     background:#16a34a;
+
     color:white;
-    transform:scale(1.12);
-    box-shadow:0 0 12px rgba(22,163,74,.45);
-    animation:popSuccess .25s ease;
-}
 
-.btn-add-from-notion {
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
+    transform:scale(1.05);
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    box-shadow:
+        0 0 12px rgba(22,163,74,.35);
 
-    background: #2563eb;
-    color: white;
-
-    border: none;
-    border-radius: 50%;
-
-    font-size: 20px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: all .2s ease;
-transition: all .25s ease;
-overflow: hidden;
+    animation:popSuccess .22s ease;
 
 }
-  .btn-add-from-notion:hover {
-    background: #1d4ed8;
-    transform: scale(1.08);
+
+.btn-add-from-notion{
+
+    width:40px;
+    height:40px;
+
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#2563eb;
+
+    color:#fff;
+
+    font-size:24px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:
+        transform .18s ease,
+        background .18s ease,
+        box-shadow .18s ease;
+
+    box-shadow:
+        0 3px 10px rgba(37,99,235,.22);
+
+}
+.btn-add-from-notion:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-1px) scale(1.04);
+
+    box-shadow:
+        0 6px 16px rgba(37,99,235,.35);
+
 }
 
   /* Drag & Drop */
