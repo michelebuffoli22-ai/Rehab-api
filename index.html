@@ -926,7 +926,7 @@ function renderRisultati(lista = allExercises) {
                 <div class="notion-result-title">${escapeHtml(exercise.nome)}</div>
                 <div class="notion-result-meta">${escapeHtml(meta || '')}</div>
                 ${notePreview ? `<div class="notion-result-note">${escapeHtml(notePreview)}</div>` : ''}
-                <button class="btn-add-from-notion" onclick="aggiungiEsercizioDaNotion(${index})">
+                <button class="btn-add-from-notion" onclick="aggiungiEsercizioDaNotion('${exercise.id}')">
                     Aggiungi alla scheda
                 </button>
             </div>
@@ -1022,9 +1022,9 @@ difficolta.trim().toLowerCase()
 
 }
 
-function aggiungiEsercizioDaNotion(index) {
+function aggiungiEsercizioDaNotion(id) {
 
-    const exercise = window.risultatiCorrenti[index];
+    const exercise = allExercises.find(e => e.id === id);
 
     if (!exercise) return;
 
