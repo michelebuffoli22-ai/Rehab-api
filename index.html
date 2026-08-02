@@ -345,6 +345,10 @@
     margin-bottom:18px;
 }
 
+.notion-status{
+    display:none;
+}
+
 .detail-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -599,13 +603,15 @@ overflow: hidden;
 
     padding:10px 14px;
 
-    background:rgba(255,255,255,.045);
+     background:rgba(255,255,255,.03);
 
-    border:1px solid rgba(255,255,255,.06);
+     border:1px solid rgba(255,255,255,.08);
 
     border-radius:14px;
 
     margin-bottom:18px;
+     box-shadow:
+        inset 0 1px rgba(255,255,255,.04);
 
 }
 
@@ -1290,7 +1296,11 @@ console.log(allExercises[0]);
   }
 function renderRisultati(lista = allExercises) {
 
+const counter = document.getElementById("notionCount");
 
+if(counter){
+    counter.textContent = `${lista.length} risultati`;
+}
 
     const container = document.getElementById('notionResults');
     container.innerHTML = '';
@@ -1301,6 +1311,7 @@ function renderRisultati(lista = allExercises) {
 
         
     lista.forEach((exercise, index) => {
+    
 
    const difficultyClass = {
     "Bassa": "badge-difficolta-bassa",
