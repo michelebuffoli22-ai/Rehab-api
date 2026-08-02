@@ -218,7 +218,15 @@
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 10px;
     padding: 10px;
-  }
+
+    transition: all .18s ease;
+    cursor: pointer;
+}
+.notion-result:hover{
+    transform: translateY(-2px);
+    border-color: rgba(37,99,235,.45);
+    box-shadow: 0 8px 18px rgba(0,0,0,.25);
+}
   .notion-result-header {
     display: flex;
     justify-content: space-between;
@@ -226,11 +234,12 @@
     gap: 10px;
     margin-bottom: 6px;
 }
-  .notion-result-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: white;
-    line-height: 1.3;
+  .notion-result-title{
+    font-size:13px;
+    font-weight:700;
+    color:white;
+    line-height:1.35;
+    flex:1;
 }
  .notion-result-meta {
     display: flex;
@@ -283,7 +292,17 @@
     border:1px solid rgba(220,38,38,.35);
 }
 
-  .notion-result-note { font-size: 10.5px; color: rgba(255,255,255,0.62); line-height: 1.4; margin-bottom: 8px; }
+.notion-result-note{
+    font-size:10px;
+    color:rgba(255,255,255,.60);
+    line-height:1.4;
+
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+
+    overflow:hidden;
+}
 .btn-add-from-notion {
     width: 32px;
     height: 32px;
