@@ -277,6 +277,54 @@
     margin-bottom: 8px;
 }
 
+.notion-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:18px;
+}
+
+.notion-title{
+    font-size:18px;
+    font-weight:700;
+    color:white;
+}
+
+.notion-subtitle{
+    margin-top:4px;
+    font-size:11px;
+    color:rgba(255,255,255,.45);
+}
+
+.btn-refresh-library{
+
+    width:36px;
+    height:36px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:rgba(255,255,255,.06);
+
+    color:white;
+
+    font-size:18px;
+
+    transition:.2s;
+
+}
+
+.btn-refresh-library:hover{
+
+    background:#2563eb;
+
+    transform:rotate(90deg);
+
+}
+
 .exercise-detail-card{
     margin-top:18px;
     padding:18px;
@@ -828,11 +876,30 @@ overflow: hidden;
             <option>Running Drills</option><option>Riscaldamento</option>
           </select>
         </div>
-        <div class="notion-actions">
-          <button class="btn-notion" onclick="cercaEserciziNotion()">
-    🔄 Aggiorna libreria
-</button>
+        <div class="notion-header">
+
+    <div>
+
+        <div class="notion-title">
+            Exercise Library
         </div>
+
+        <div class="notion-subtitle" id="notionCount">
+            0 esercizi disponibili
+        </div>
+
+    </div>
+
+    <button
+        class="btn-refresh-library"
+        title="Aggiorna libreria"
+        onclick="cercaEserciziNotion()">
+
+        ↻
+
+    </button>
+
+</div>
         <div class="notion-status" id="notionStatus">Collega un endpoint sicuro per leggere Exercise Database senza esporre token Notion.</div>
         <div class="notion-results" id="notionResults"></div>
         <div id="exerciseDetail" class="exercise-detail-empty">
@@ -1136,7 +1203,7 @@ function renderRisultati(lista = allExercises) {
 
     // Aggiorna il contatore
     document.getElementById('notionStatus').textContent =
-        `${lista.length} esercizi trovati.`;
+        `${lista.length} esercizi disponibili.`;
 
         
     lista.forEach((exercise, index) => {
