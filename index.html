@@ -265,6 +265,24 @@
     border: 1px solid rgba(124,45,18,.35);
 }
 
+.badge-difficolta-bassa{
+    background: rgba(22,163,74,.15);
+    color:#86efac;
+    border:1px solid rgba(22,163,74,.35);
+}
+
+.badge-difficolta-media{
+    background: rgba(217,119,6,.15);
+    color:#fcd34d;
+    border:1px solid rgba(217,119,6,.35);
+}
+
+.badge-difficolta-alta{
+    background: rgba(220,38,38,.15);
+    color:#fca5a5;
+    border:1px solid rgba(220,38,38,.35);
+}
+
   .notion-result-note { font-size: 10.5px; color: rgba(255,255,255,0.62); line-height: 1.4; margin-bottom: 8px; }
 .btn-add-from-notion {
     width: 32px;
@@ -578,6 +596,32 @@
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+/* ===== Layout Libreria + Scheda ===== */
+
+.exercise-workspace{
+    display:grid;
+    grid-template-columns:420px 1fr;
+    gap:28px;
+    align-items:start;
+}
+
+.exercise-library{
+    position:sticky;
+    top:20px;
+}
+
+.exercise-sheet{
+    min-width:0;
+}
+
+#exList{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
 </head>
@@ -689,12 +733,29 @@
       </div>
     </div>
 
-    <div>
-      <div class="section-label">Esercizi</div>
+   <div class="exercise-workspace">
 
-      <div id="exList" style="display:flex;flex-direction:column;gap:12px;"></div>
-      <button class="btn-add-ex" onclick="creaEsercizioVuotoForm()">+ Aggiungi esercizio vuoto</button>
+    <div class="exercise-library">
+
+        <div class="section-label">Libreria esercizi</div>
+
+        <!-- TUTTO IL BLOCCO NOTION VA QUI -->
+
     </div>
+
+    <div class="exercise-sheet">
+
+        <div class="section-label">Scheda</div>
+
+        <div id="exList"></div>
+
+        <button class="btn-add-ex" onclick="creaEsercizioVuotoForm()">
+            + Aggiungi esercizio vuoto
+        </button>
+
+    </div>
+
+</div>
 
     <div>
       <div class="section-label">Note Generali</div>
@@ -968,7 +1029,13 @@ function renderRisultati(lista = allExercises) {
         
     lista.forEach((exercise, index) => {
 
-        const badges = `
+   const difficultyClass = {
+    "Bassa": "badge-difficolta-bassa",
+    "Media": "badge-difficolta-media",
+    "Alta": "badge-difficolta-alta"
+}[exercise.difficolta] || "badge-difficolta";
+
+const badges = `
     ${exercise.distretto.map(d =>
         `<span class="badge badge-distretto">${escapeHtml(d)}</span>`
     ).join("")}
@@ -979,9 +1046,10 @@ function renderRisultati(lista = allExercises) {
 
     ${
         exercise.difficolta
-            ? `<span class="badge badge-difficolta">${escapeHtml(exercise.difficolta)}</span>`
+            ? `<span class="badge ${difficultyClass}">${escapeHtml(exercise.difficolta)}</span>`
             : ""
     }
+
 `;
 
         const notePreview = exercise.note
