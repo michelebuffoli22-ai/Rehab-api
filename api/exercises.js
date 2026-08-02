@@ -30,6 +30,9 @@ export default async function handler(req, res) {
       const p = page.properties;
 
      return {
+
+  id: page.id,   
+      
   nome: getTitle(p["Nome Esercizio"]),
 
   serie: getRichText(p["Serie"]),
