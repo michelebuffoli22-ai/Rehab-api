@@ -994,7 +994,7 @@ overflow: hidden;
           </select>
         </div>
     
-      
+        <div class="notion-status" id="notionStatus">Collega un endpoint sicuro per leggere Exercise Database senza esporre token Notion.</div>
         <div class="notion-results" id="notionResults"></div>
         <div id="exerciseDetail" class="exercise-detail-empty">
 
@@ -1287,58 +1287,71 @@ console.log(allExercises[0]);
       setNotionStatus('Non riesco a leggere Notion. Controlla endpoint, CORS e funzione server.', true);
       console.error(e);
     }
-  }function renderRisultati(lista = allExercises) {
+  }
+function renderRisultati(lista = allExercises) {
 
-    const container = document.getElementById("notionResults");
-    container.innerHTML = "";
 
-    // Aggiorna il contatore nella toolbar
-    document.getElementById("notionCount").textContent =
-        `${lista.length} risultati`;
 
-    lista.forEach((exercise) => {
+    const container = document.getElementById('notionResults');
+    container.innerHTML = '';
 
-        const difficultyClass = {
-            "Bassa": "badge-difficolta-bassa",
-            "Media": "badge-difficolta-media",
-            "Alta": "badge-difficolta-alta"
-        }[exercise.difficolta] || "badge-difficolta";
+    // Aggiorna il contatore
+    document.getElementById('notionStatus').textContent =
+        `${lista.length} risultati.`;
 
-        const badges = `
-            ${exercise.distretto.map(d =>
-                `<span class="badge badge-distretto">${escapeHtml(d)}</span>`
-            ).join("")}
+        
+    lista.forEach((exercise, index) => {
 
-            ${exercise.categoria.map(c =>
-                `<span class="badge badge-categoria">${escapeHtml(c)}</span>`
-            ).join("")}
+   const difficultyClass = {
+    "Bassa": "badge-difficolta-bassa",
+    "Media": "badge-difficolta-media",
+    "Alta": "badge-difficolta-alta"
+}[exercise.difficolta] || "badge-difficolta";
 
-            ${exercise.difficolta
-                ? `<span class="badge ${difficultyClass}">${escapeHtml(exercise.difficolta)}</span>`
-                : ""}
-        `;
+const badges = `
+    ${exercise.distretto.map(d =>
+        `<span class="badge badge-distretto">${escapeHtml(d)}</span>`
+    ).join("")}
+
+    ${exercise.categoria.map(c =>
+        `<span class="badge badge-categoria">${escapeHtml(c)}</span>`
+    ).join("")}
+
+    ${
+        exercise.difficolta
+            ? `<span class="badge ${difficultyClass}">${escapeHtml(exercise.difficolta)}</span>`
+            : ""
+    }
+
+`;
+
+        const notePreview = exercise.note
+            ? exercise.note.slice(0, 140) + (exercise.note.length > 140 ? '...' : '')
+            : '';
 
         container.innerHTML += `
-            <div class="notion-result ${selectedExerciseId === exercise.id ? "selected" : ""}"
-                 onclick="selezionaEsercizio('${exercise.id}')">
-
+            <div class="notion-result ${selectedExerciseId === exercise.id ? 'selected' : ''}"
+     onclick="selezionaEsercizio('${exercise.id}')">
                 <div class="notion-result-header">
 
-                    <div class="notion-result-title">
-                        ${escapeHtml(exercise.nome)}
-                    </div>
+    <div class="notion-result-title">
+        ${escapeHtml(exercise.nome)}
+    </div>
 
-                    <button
-                        class="btn-add-from-notion"
-                        onclick="event.stopPropagation(); aggiungiEsercizioDaNotion('${exercise.id}', this)">
-                        +
-                    </button>
+    <button
+    class="btn-add-from-notion"
+    onclick="event.stopPropagation(); aggiungiEsercizioDaNotion('${exercise.id}', this)">
 
-                </div>
+    +
 
-                <div class="notion-result-meta">
-                    ${badges}
-                </div>
+</button>
+
+</div>
+
+<div class="notion-result-meta">
+    ${badges}
+</div>
+
 
             </div>
         `;
