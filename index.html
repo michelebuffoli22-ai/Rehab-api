@@ -232,11 +232,39 @@
     color: white;
     line-height: 1.3;
 }
-  .notion-result-meta {
-    font-size: 11px;
-    color: rgba(255,255,255,0.65);
-    margin-bottom: 6px;
+ .notion-result-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
 }
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.badge-distretto {
+    background: rgba(15,118,110,.15);
+    color: #5eead4;
+    border: 1px solid rgba(15,118,110,.35);
+}
+
+.badge-categoria {
+    background: rgba(29,78,216,.15);
+    color: #93c5fd;
+    border: 1px solid rgba(29,78,216,.35);
+}
+
+.badge-difficolta {
+    background: rgba(124,45,18,.15);
+    color: #fdba74;
+    border: 1px solid rgba(124,45,18,.35);
+}
+
   .notion-result-note { font-size: 10.5px; color: rgba(255,255,255,0.62); line-height: 1.4; margin-bottom: 8px; }
 .btn-add-from-notion {
     width: 32px;
@@ -940,11 +968,21 @@ function renderRisultati(lista = allExercises) {
         
     lista.forEach((exercise, index) => {
 
-        const meta = [
-            exercise.distretto.join(', '),
-            exercise.categoria.join(', '),
-            exercise.difficolta
-        ].filter(Boolean).join(' · ');
+        const badges = `
+    ${exercise.distretto.map(d =>
+        `<span class="badge badge-distretto">${escapeHtml(d)}</span>`
+    ).join("")}
+
+    ${exercise.categoria.map(c =>
+        `<span class="badge badge-categoria">${escapeHtml(c)}</span>`
+    ).join("")}
+
+    ${
+        exercise.difficolta
+            ? `<span class="badge badge-difficolta">${escapeHtml(exercise.difficolta)}</span>`
+            : ""
+    }
+`;
 
         const notePreview = exercise.note
             ? exercise.note.slice(0, 140) + (exercise.note.length > 140 ? '...' : '')
@@ -970,7 +1008,7 @@ function renderRisultati(lista = allExercises) {
 </div>
 
 <div class="notion-result-meta">
-    ${escapeHtml(meta)}
+    ${badges}
 </div>
 
 ${notePreview
