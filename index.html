@@ -925,13 +925,15 @@
     box-shadow:0 0 0 2px rgba(37,99,235,.18);
 }
 
-/* ===== ESERCIZIO AGGIUNTO ===== */
+/* ===== ESERCIZIO GIÀ AGGIUNTO ===== */
 
 .notion-result.added{
 
-    background:rgba(34,197,94,.045);
+    border:1px solid rgba(34,197,94,.35);
 
-    border-color:rgba(34,197,94,.28);
+    background:rgba(34,197,94,.06);
+
+    transition:all .25s ease;
 
 }
 
@@ -941,8 +943,8 @@
 
     position:absolute;
 
-    left:0;
     top:0;
+    left:0;
     bottom:0;
 
     width:4px;
@@ -1573,6 +1575,8 @@ setTimeout(() => {
 
     button.innerHTML = "+";
     button.classList.remove("added");
+
+button.closest(".notion-result").classList.add("added");
 
 }, 5000);
 
