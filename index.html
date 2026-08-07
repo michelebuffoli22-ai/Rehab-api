@@ -1571,17 +1571,7 @@ function aggiungiEsercizioDaNotion(id, button){
 
     aggiorna();
 
-    button.innerHTML = "✔";
-button.classList.add("added");
-
-setTimeout(() => {
-
-    button.innerHTML = "+";
-    button.classList.remove("added");
-
-button.closest(".notion-result").classList.add("added");
-
-}, 5000);
+    renderRisultati();
 
 }
 
