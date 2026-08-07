@@ -1406,6 +1406,7 @@ if(counter){
         
     lista.forEach((exercise, index) => {
     
+      const giaPresente = esercizioGiaPresente(exercise.nome);
 
    const difficultyClass = {
     "Bassa": "badge-difficolta-bassa",
@@ -1435,7 +1436,9 @@ const badges = `
             : '';
 
         container.innerHTML += `
-            <div class="notion-result ${selectedExerciseId === exercise.id ? 'selected' : ''}"
+           <div class="notion-result
+${selectedExerciseId===exercise.id ? 'selected' : ''}
+${esercizioGiaPresente(exercise.nome) ? 'added' : ''}
      onclick="selezionaEsercizio('${exercise.id}')">
                 <div class="notion-result-header">
 
@@ -1579,6 +1582,17 @@ setTimeout(() => {
 button.closest(".notion-result").classList.add("added");
 
 }, 5000);
+
+}
+
+function esercizioGiaPresente(nome){
+
+    return [...document.querySelectorAll(".ex-input-name")]
+
+        .some(input =>
+            input.value.trim().toLowerCase() ===
+            nome.trim().toLowerCase()
+        );
 
 }
 
