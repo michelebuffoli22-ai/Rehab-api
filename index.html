@@ -469,6 +469,7 @@
 
     color:#bfdbfe;
 
+  
 }
 
 .btn-add-from-notion.added{
@@ -481,6 +482,86 @@
 
     transform:scale(1.05);
 
+}
+
+.modal-overlay{
+
+    position:fixed;
+    inset:0;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(0,0,0,.55);
+
+    backdrop-filter:blur(5px);
+
+    z-index:9999;
+}
+
+.modal-overlay.open{
+
+    display:flex;
+}
+
+.modal-window{
+
+    width:min(980px,92vw);
+
+    height:min(700px,90vh);
+
+    background:#101827;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:0 25px 70px rgba(0,0,0,.45);
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.modal-header{
+
+    height:70px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 24px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.modal-body{
+
+    flex:1;
+
+    overflow:auto;
+
+    padding:28px;
+}
+
+.modal-close{
+
+    width:40px;
+
+    height:40px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:20px;
 }
 
   /* Drag & Drop */
@@ -1191,6 +1272,28 @@
   </div>
 </div>
 
+<div id="exerciseModal" class="modal-overlay">
+
+    <div class="modal-window">
+
+        <div class="modal-header">
+            <h2>Dettaglio esercizio</h2>
+
+            <button
+                class="modal-close"
+                onclick="closeExerciseModal()">
+                ✕
+            </button>
+        </div>
+
+        <div class="modal-body">
+
+        </div>
+
+    </div>
+
+</div>
+
 <script>
   let currentCategory = 'rehab';
   let allExercises = [];
@@ -1202,6 +1305,20 @@
   let activeTimers = {};
 
   document.getElementById('pData').valueAsDate = new Date();
+
+  function openExerciseModal(){
+
+    document
+        .getElementById("exerciseModal")
+        .classList.add("open");
+}
+
+function closeExerciseModal(){
+
+    document
+        .getElementById("exerciseModal")
+        .classList.remove("open");
+}
 
   function escapeHtml(value) {
     return String(value ?? '')
