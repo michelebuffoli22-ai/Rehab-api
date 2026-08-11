@@ -143,10 +143,12 @@
 
   /* ── LAYOUT ── */
   .app {
-  display: grid;
-  grid-template-columns: 540px 1fr;
-  flex: 1;
-}
+    display: grid;
+    grid-template-columns: minmax(320px, 420px) minmax(0, 1fr) minmax(320px, 360px);
+    gap: 24px;
+    flex: 1;
+    min-height: 0;
+  }
 
   /* ── SIDEBAR ── */
   .sidebar {
@@ -898,25 +900,40 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
 
-/* ===== Layout Libreria + Scheda ===== */
+/* ===== Layout colonne principali ===== */
 
-.exercise-workspace{
-    display:grid;
-    grid-template-columns:420px 1fr;
-    gap:28px;
-    align-items:start;
+.sidebar,
+.preview-area,
+.exercise-sheet {
+  min-height: 0;
 }
 
-.exercise-library{
-    position:sticky;
-    top:20px;
+.sidebar,
+.exercise-sheet {
+  overflow-y: auto;
 }
 
-.exercise-sheet{
-    min-width:0;
+.preview-area {
+  background: #0a1630;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 24px;
+  overflow-y: auto;
 }
 
-#exList{
+.exercise-sheet {
+  background: var(--sidebar);
+  border-left: 1px solid var(--border);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+#exList {
     display:flex;
     flex-direction:column;
     gap:12px;
@@ -1106,30 +1123,6 @@
       </div>
     </div>
 
-   <div class="exercise-workspace">
-
-    <div class="exercise-library">
-
-        <div class="section-label">Libreria esercizi</div>
-
-        <!-- TUTTO IL BLOCCO NOTION VA QUI -->
-
-    </div>
-
-    <div class="exercise-sheet">
-
-        <div class="section-label">Scheda</div>
-
-        <div id="exList"></div>
-
-        <button class="btn-add-ex" onclick="creaEsercizioVuotoForm()">
-            + Aggiungi esercizio vuoto
-        </button>
-
-    </div>
-
-</div>
-
     <div>
       <div class="section-label">Note Generali</div>
       <div class="form-group">
@@ -1141,6 +1134,7 @@
   <div class="preview-area">
     <div class="preview-label">Anteprima scheda</div>
     <div class="scheda theme-rehab" id="scheda">
+
       
       <div class="s-header">
         <div class="s-avatar" id="avatarCont">
@@ -1190,6 +1184,14 @@
       </div>
 
     </div>
+  </div>
+
+  <div class="exercise-sheet">
+    <div class="section-label">Scheda</div>
+    <div id="exList"></div>
+    <button class="btn-add-ex" onclick="creaEsercizioVuotoForm()">
+      + Aggiungi esercizio vuoto
+    </button>
   </div>
 </div>
 
