@@ -484,86 +484,6 @@
 
 }
 
-.modal-overlay{
-
-    position:fixed;
-    inset:0;
-
-    display:none;
-
-    align-items:center;
-    justify-content:center;
-
-    background:rgba(0,0,0,.55);
-
-    backdrop-filter:blur(5px);
-
-    z-index:9999;
-}
-
-.modal-overlay.open{
-
-    display:flex;
-}
-
-.modal-window{
-
-    width:min(980px,92vw);
-
-    height:min(700px,90vh);
-
-    background:#101827;
-
-    border-radius:18px;
-
-    overflow:hidden;
-
-    box-shadow:0 25px 70px rgba(0,0,0,.45);
-
-    display:flex;
-
-    flex-direction:column;
-}
-
-.modal-header{
-
-    height:70px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:0 24px;
-
-    border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.modal-body{
-
-    flex:1;
-
-    overflow:auto;
-
-    padding:28px;
-}
-
-.modal-close{
-
-    width:40px;
-
-    height:40px;
-
-    border:none;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-    font-size:20px;
-}
-
   /* Drag & Drop */
   .ex-block { transition: box-shadow 0.2s, opacity 0.2s; }
   .ex-block.sortable-chosen { box-shadow: 0 8px 30px rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.3) !important; }
@@ -973,6 +893,7 @@
     }
   }
 
+
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
@@ -1272,28 +1193,6 @@
   </div>
 </div>
 
-<div id="exerciseModal" class="modal-overlay">
-
-    <div class="modal-window">
-
-        <div class="modal-header">
-            <h2>Dettaglio esercizio</h2>
-
-            <button
-                class="modal-close"
-                onclick="closeExerciseModal()">
-                ✕
-            </button>
-        </div>
-
-        <div class="modal-body">
-
-        </div>
-
-    </div>
-
-</div>
-
 <script>
   let currentCategory = 'rehab';
   let allExercises = [];
@@ -1305,20 +1204,6 @@
   let activeTimers = {};
 
   document.getElementById('pData').valueAsDate = new Date();
-
-  function openExerciseModal(){
-
-    document
-        .getElementById("exerciseModal")
-        .classList.add("open");
-}
-
-function closeExerciseModal(){
-
-    document
-        .getElementById("exerciseModal")
-        .classList.remove("open");
-}
 
   function escapeHtml(value) {
     return String(value ?? '')
@@ -1493,11 +1378,6 @@ function closeExerciseModal(){
       const rows = Array.isArray(data) ? data : (data.exercises || data.results || []);
       notionCache = rows.map(normalizzaEsercizioNotion);
       allExercises = [...notionCache];
-      console.log("=== ALL EXERCISES ===");
-console.table(allExercises);
-
-console.log("Primo esercizio:");
-console.log(allExercises[0]);
       renderRisultati();
       setNotionStatus(notionCache.length ? `${notionCache.length} risultati.` : 'Nessun esercizio trovato con questi filtri.');
     } catch(e) {
@@ -1827,7 +1707,7 @@ function esercizioGiaPresente(nome){
           gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
           oscillator.start();
           oscillator.stop(audioCtx.currentTime + 0.3); // Dura 300 millisecondi
-        } catch(e) { console.log("Audio non supportato o bloccato dal browser"); }
+        } catch(e) {}
 
       } else {
         element.querySelector('.s-rep-value').innerText = secondiRimanenti + '"';
@@ -1916,16 +1796,18 @@ function esercizioGiaPresente(nome){
         </div>
       `;
     });
+    
   }
-  function selezionaEsercizio(id){
+ function selezionaEsercizio(id){
 
-    selectedExerciseId=id;
+    selectedExerciseId = id;
 
     applicaFiltri();
 
     renderDettaglioEsercizio(id);
 
 }
+
 function renderDettaglioEsercizio(id){
 
     const exercise = allExercises.find(e => e.id === id);
