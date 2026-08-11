@@ -164,20 +164,20 @@
     font-size: 9px; font-weight: 800; letter-spacing: 2px;
     text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 10px;
   }
-  .form-group { margin-bottom: 12px; }
+  .form-group { margin-bottom: 8px; }
   .form-group label {
-    display: block; font-size: 11px; font-weight: 600;
-    color: rgba(255,255,255,0.5); margin-bottom: 5px; letter-spacing: 0.3px;
+    display: block; font-size: 10px; font-weight: 600;
+    color: rgba(255,255,255,0.6); margin-bottom: 4px; letter-spacing: 0.2px;
   }
   .form-group input, .form-group textarea, .form-group select {
-    width: 100%; height: 44px; background: var(--input-bg); border: 1px solid var(--input-border);
-    border-radius: 10px; padding: 0px 14px; font-size: 14px; color: white; 
+    width: 100%; height: 40px; background: var(--input-bg); border: 1px solid var(--input-border);
+    border-radius: 10px; padding: 0px 12px; font-size: 13px; color: white; 
     font-family: inherit; outline: none; transition: border 0.2s;
   }
   .form-group input:focus, .form-group textarea:focus {
     border-color: #2563c7; background: rgba(37,99,199,0.08);
   }
-  .form-group textarea { resize: vertical; min-height: 60px; }
+  .form-group textarea { resize: vertical; min-height: 70px; }
   
   .file-upload-wrapper {
     position: relative; margin-top: 6px;
@@ -206,13 +206,13 @@
   /* Esercizi form */
   .ex-block {
     background: var(--sidebar2); border: 1px solid var(--border);
-    border-radius: 14px; padding: 12px 12px 10px; position: relative;
+    border-radius: 14px; padding: 10px 12px 10px; position: relative;
   }
-  .ex-block-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 10px; }
-  .ex-block-num { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: #f59e0b; text-transform: uppercase; }
+  .ex-block-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 8px; }
+  .ex-block-num { font-size: 11px; font-weight: 800; letter-spacing: 1px; color: #f59e0b; text-transform: uppercase; }
   .btn-remove {
     background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.18);
-    color: #f87171; border-radius: 8px; padding: 5px 9px; font-size: 11px;
+    color: #f87171; border-radius: 8px; padding: 4px 8px; font-size: 10px;
     cursor: pointer; font-family: inherit; font-weight: 600; transition: all 0.2s;
   }
   .btn-remove:hover { background: rgba(239,68,68,0.18); }
@@ -227,7 +227,7 @@
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 18px;
-    padding: 18px;
+    padding: 14px;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
   }
   .notion-actions { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
@@ -245,48 +245,48 @@
     transition: all 0.2s;
   }
   .btn-notion:hover { background: rgba(16,185,129,0.18); border-color: #10b981; }
-  .notion-status { font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.55; margin-top: 12px; }
-  .notion-results { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
+  .notion-status { font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.55; margin-top: 10px; }
+  .notion-results { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
   .notion-result {
     position: relative;
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 16px;
-    padding: 14px 16px;
+    padding: 12px 14px;
     transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease;
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    min-height: 74px;
+    gap: 8px;
+    min-height: 64px;
   }
   .notion-result:hover {
     transform: translateY(-2px);
     border-color: rgba(37,99,235,0.55);
-    box-shadow: 0 16px 36px rgba(0,0,0,0.22);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.16);
     background: rgba(15,23,42,0.94);
   }
   .notion-result-header {
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:12px;
+    gap:8px;
   }
   .notion-result-title {
     flex:1;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     color: #f8fafc;
-    min-height: 26px;
-    line-height: 1.2;
+    min-height: 24px;
+    line-height: 1.25;
   }
   .notion-result-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 6px;
-    font-size: 11px;
-    color: rgba(255,255,255,0.6);
+    gap: 6px;
+    margin-top: 4px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.65);
   }
   .notion-header {
     display:flex;
@@ -426,17 +426,16 @@
 }
 
 .btn-add-from-notion{
-    width:28px;
-    height:28px;
+    width:26px;
+    height:26px;
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:8px;
+    border-radius:7px;
     background: rgba(255,255,255,0.05);
     border:1px solid rgba(255,255,255,0.1);
     color:#60a5fa;
-    font-size:14px;
-    font-weight:700;
+    font-size:12px;
     cursor:pointer;
     transition: background .18s, border-color .18s, color .18s, transform .18s;
 }
@@ -463,14 +462,14 @@
   .ex-block.sortable-chosen { box-shadow: 0 8px 30px rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.3) !important; }
   .ex-block.sortable-ghost  { opacity: 0.25; }
   .drag-handle {
-    cursor: grab; padding: 6px 6px;
-    color: rgba(255,255,255,0.35);
+    cursor: grab; width: 30px; height: 30px; padding: 6px;
+    color: rgba(255,255,255,0.45);
     transition: color 0.2s, transform 0.15s;
     display: flex; align-items: center;
     justify-content: center;
     user-select: none; flex-shrink: 0;
-    background: rgba(255,255,255,0.05);
-    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 10px;
   }
   .drag-handle:hover { color: rgba(255,255,255,0.75); transform: translateY(-1px); }
   .drag-handle:active { cursor: grabbing; }
@@ -480,7 +479,7 @@
   /* ── PREVIEW AREA ── */
   .preview-area {
     background: #0a1630; display: flex; flex-direction: column;
-    align-items: center; padding: 32px 24px; overflow-y: auto;
+    align-items: center; padding: 28px 24px; overflow-y: auto;
   }
   .preview-label {
     font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
@@ -699,10 +698,10 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:14px;
-    padding:14px 16px;
-    margin-bottom:16px;
-    border-radius:18px;
+    gap:8px;
+    padding:8px 12px;
+    margin-bottom:10px;
+    border-radius:16px;
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.08);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
@@ -711,8 +710,8 @@
 .library-title {
     display:flex;
     align-items:center;
-    gap:10px;
-    font-size:14px;
+    gap:8px;
+    font-size:13px;
     font-weight:700;
     color: rgba(255,255,255,0.92);
 }
@@ -722,16 +721,16 @@
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    width:32px;
-    height:32px;
-    border-radius:12px;
+    width:30px;
+    height:30px;
+    border-radius:10px;
     background: rgba(37,99,235,0.16);
     color: #bfdbfe;
     font-size: 13px;
 }
 
 .library-count {
-    font-size:12px;
+    font-size:11px;
     color: rgba(255,255,255,0.6);
 }
 
@@ -855,17 +854,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 32px 24px;
+  padding: 28px 24px;
   overflow-y: auto;
 }
 
 .exercise-sheet {
   background: var(--sidebar);
   border-left: 1px solid var(--border);
-  padding: 18px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   overflow-y: auto;
   min-width: 0;
   min-height: 0;
@@ -876,11 +875,8 @@
   top: 0;
   z-index: 2;
   background: rgba(15,23,42,0.96);
-  padding: 14px 0 12px;
-  margin-bottom: 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  display: flex;
-  justify-content: space-between;
+  padding: 10px 0 10px;
+  margin-bottom: 10px;
   align-items: center;
   gap: 12px;
 }
