@@ -767,13 +767,41 @@
   .s-footer-phone { text-align: center; font-size: 10.5px; font-weight: 700; color: rgba(255,255,255,0.5); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px; letter-spacing: 0.5px; }
 
   /* Layout di stampa */
+  @page { size: A4 portrait; margin: 16mm 14mm; }
   @media print {
-    body { background: white !important; color: #000 !important; }
+    html, body {
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      min-height: auto !important;
+      background: white !important;
+      color: #000 !important;
+    }
+    body {
+      overflow: visible !important;
+    }
     .topbar, .sidebar, .preview-label, .s-header-action { display: none !important; }
     .exercise-sheet { display: none !important; }
-    .app { display: block !important; }
-    .preview-area { background: white !important; padding: 0 !important; align-items: flex-start !important; }
-    .scheda { width: 100% !important; border-radius: 0 !important; box-shadow: none !important; background: white !important; color: black !important; }
+    .app { display: block !important; width: 100% !important; }
+    .preview-area {
+      display: block !important;
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 auto !important;
+      background: white !important;
+      padding: 0 !important;
+      align-items: flex-start !important;
+    }
+    .scheda {
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 auto !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      background: white !important;
+      color: black !important;
+      box-sizing: border-box !important;
+    }
     .s-header, .s-footer { background: #f1f5f9 !important; border-color: #cbd5e1 !important; }
     .s-name, .s-ex-name, .s-rep-value { color: black !important; }
     .s-ex-num { color: #1e293b !important; }
