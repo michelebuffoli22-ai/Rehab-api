@@ -777,9 +777,7 @@
       background: white !important;
       color: #000 !important;
     }
-    body {
-      overflow: visible !important;
-    }
+    body { overflow: visible !important; }
     .topbar, .sidebar, .preview-label, .s-header-action { display: none !important; }
     .exercise-sheet { display: none !important; }
     .app { display: block !important; width: 100% !important; }
@@ -801,7 +799,29 @@
       background: white !important;
       color: black !important;
       box-sizing: border-box !important;
+      overflow: visible !important;
     }
+
+    /* Regole di impaginazione: mantenere insieme le singole card quando possibile */
+    .s-ex,
+    .s-ex-top,
+    .s-reps,
+    .s-note,
+    .s-general,
+    .s-footer {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    /* Riduzioni verticali moderate per la stampa */
+    .s-header { padding: 18px 16px 12px !important; }
+    .s-patient-band { margin: 8px 14px 0 !important; padding: 8px 12px !important; }
+    .s-cat-row { padding: 8px 12px 2px !important; gap: 6px !important; }
+    .s-exercises { padding: 8px 12px !important; gap: 6px !important; }
+    .s-note { margin: 6px 12px 10px !important; padding: 8px 10px !important; }
+    .s-general { margin: 8px 12px 12px !important; padding: 10px 12px !important; }
+    .s-footer { padding: 10px 14px !important; gap: 6px !important; }
+
     .s-header, .s-footer { background: #f1f5f9 !important; border-color: #cbd5e1 !important; }
     .s-name, .s-ex-name, .s-rep-value { color: black !important; }
     .s-ex-num { color: #1e293b !important; }
