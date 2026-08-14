@@ -591,6 +591,8 @@
     font-size: 11px; font-weight: 700; text-decoration: none; white-space: nowrap; align-self: flex-start;
   }
   .s-reps { display: flex; gap: 5px; padding: 0 14px 10px; flex-wrap: wrap; }
+  .s-ex-image { padding: 0 14px 10px; display:flex; justify-content:center; }
+  .s-ex-image img { width:100%; max-height:220px; object-fit:contain; display:block; }
 
 
 .results-label {
@@ -1253,7 +1255,8 @@
       rep: block.querySelector('.ex-input-rep')?.value || '',
       rec: block.querySelector('.ex-input-rec')?.value || '',
       link: block.querySelector('.ex-input-link')?.value || '',
-      note: block.querySelector('.ex-input-note')?.value || ''
+      note: block.querySelector('.ex-input-note')?.value || '',
+      immagine: block.querySelector('.ex-input-image')?.value || ''
     }));
   }
 
@@ -1296,6 +1299,19 @@
     const categoria = normalizzaListaNotion(raw['Categoria'] || raw.categoria);
     const strumenti = normalizzaListaNotion(raw['Strumenti'] || raw.strumenti);
     const difficolta = raw['Difficoltà'] || raw.difficolta || '';
+    // Gestione nuova proprietà Immagine (Notion Files & media)
+    const immagineProp = raw['Immagine'] || raw.Immagine || raw['Immagine Url'] || raw.immagine || raw.immagineUrl || raw.image || raw.imageUrl || null;
+    let immagine = '';
+    if (Array.isArray(immagineProp) && immagineProp.length) {
+      const f = immagineProp[0];
+      immagine = (f && f.file && f.file.url) || (f && f.external && f.external.url) || f.url || '';
+    } else if (immagineProp && typeof immagineProp === 'object') {
+      const f = immagineProp;
+      immagine = (f.file && f.file.url) || (f.external && f.external.url) || f.url || '';
+    } else if (typeof immagineProp === 'string' && immagineProp.trim()) {
+      immagine = immagineProp.trim();
+    }
+
     return {
       id: raw.id,
       nome,
@@ -1308,7 +1324,8 @@
       categoria,
       strumenti,
       difficolta,
-      url: raw.url || raw.notionUrl || ''
+      url: raw.url || raw.notionUrl || '',
+      immagine
     };
   }
 
@@ -1552,7 +1569,8 @@ function aggiungiEsercizioDaNotion(id, button){
         exercise.ripetizioni,
         exercise.recupero,
         exercise.video,
-        exercise.note
+    exercise.note,
+    exercise.immagine || ''
     );
 
     aggiorna();
@@ -1590,7 +1608,7 @@ function esercizioGiaPresente(nome){
     aggiorna();
   }
 
-  function aggiungiEsercizioStrutturato(nome, ser, rep, rec, link, note) {
+  function aggiungiEsercizioStrutturato(nome, ser, rep, rec, link, note, immagine) {
     syncExCountFromDom();
     exCount++;
     const id = exCount;
@@ -1630,12 +1648,13 @@ function esercizioGiaPresente(nome){
         <label>Note specifiche ed esecuzione</label>
         <textarea class="ex-input-note" placeholder="Es. Mantieni la schiena ben aderente..." oninput="aggiorna()">${escapeHtml(note)}</textarea>
       </div>
+      <input type="hidden" class="ex-input-image" value="${escapeAttr(immagine || '')}">
     `;
     container.appendChild(block);
   }
 
   function creaEsercizioVuotoForm() {
-    aggiungiEsercizioStrutturato("", "3", "10", "60s", "", "");
+    aggiungiEsercizioStrutturato("", "3", "10", "60s", "", "", "");
     aggiorna();
   }
 
@@ -1751,6 +1770,11 @@ function esercizioGiaPresente(nome){
       let videoBtn = isSafeUrl(link) ? `<a href="${escapeAttr(link)}" target="_blank" rel="noopener noreferrer" class="s-video-btn">▶ Video</a>` : '';
       let noteBlock = note ? `<div class="s-note"><strong>📌 Focus Esecuzione:</strong>${escapeHtml(note)}</div>` : '';
 
+      let imgBlock = '';
+      if (esercizio.immagine && isSafeUrl(esercizio.immagine)) {
+        imgBlock = `<div class="s-ex-image"><img src="${escapeAttr(esercizio.immagine)}" alt=""></div>`;
+      }
+
       // Controllo se i campi Ripetizioni o Recupero contengono i secondi nei formati previsti
       let secRep = estraiSecondi(rep);
       let secRec = estraiSecondi(rec);
@@ -1769,6 +1793,8 @@ function esercizioGiaPresente(nome){
         htmlRep += `<div class="s-rep"><span class="s-rep-label">Recupero</span><span class="s-rep-value">${escapeHtml(rec)}</span></div>`;
       }
 
+      console.log({ nome: esercizio.name, immagine: esercizio.immagine });
+
       container.innerHTML += `
         <div class="s-ex">
           <div class="s-ex-top">
@@ -1778,6 +1804,7 @@ function esercizioGiaPresente(nome){
             </div>
             ${videoBtn}
           </div>
+          ${imgBlock}
           <div class="s-reps">
             ${htmlRep}
           </div>
@@ -1821,17 +1848,26 @@ function renderDettaglioEsercizio(id){
 
             </div>
 
-            <div class="detail-grid">
+            <div class="detail-note">
 
-                <div>
+              <label>Note cliniche</label>
 
-                    <label>Serie</label>
+              <p>${escapeHtml(exercise.note || "-")}</p>
 
-                    <div>${escapeHtml(exercise.serie)}</div>
+            </div>
 
-                </div>
+            ${exercise.immagine && isSafeUrl(exercise.immagine) ? `
+            <div class="detail-image-section">
+              <label>Immagine</label>
+              <div>
+              <a href="#" class="btn-view-image" onclick="showImageModal('${escapeAttr(exercise.immagine)}'); return false;">👁 Visualizza</a>
+              </div>
+            </div>
+            ` : ''}
 
-                <div>
+          </div>
+
+        `;
 
                     <label>Ripetizioni</label>
 
@@ -1955,6 +1991,56 @@ function renderDettaglioEsercizio(id){
     });
     aggiorna();
   }
+
+  /* Image modal for exercise detail preview */
+  const imageModalRootId = 'exerciseImageModalRoot';
+  function ensureImageModalExists(){
+    if (document.getElementById(imageModalRootId)) return;
+    const div = document.createElement('div');
+    div.id = imageModalRootId;
+    div.innerHTML = `
+      <div class="img-modal-overlay" id="imgModalOverlay" style="display:none;">
+        <div class="img-modal" id="imgModal">
+          <button class="img-modal-close" id="imgModalClose">✕</button>
+          <img src="" alt="" id="imgModalImg">
+        </div>
+      </div>
+    `;
+    document.body.appendChild(div);
+    const overlay = document.getElementById('imgModalOverlay');
+    const closeBtn = document.getElementById('imgModalClose');
+    const modal = document.getElementById('imgModal');
+    closeBtn.addEventListener('click', closeImageModal);
+    overlay.addEventListener('click', function(e){ if (e.target === overlay) closeImageModal(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeImageModal(); });
+  }
+
+  function showImageModal(url){
+    if (!url) return;
+    ensureImageModalExists();
+    const overlay = document.getElementById('imgModalOverlay');
+    const img = document.getElementById('imgModalImg');
+    img.src = url;
+    overlay.style.display = 'flex';
+  }
+
+  function closeImageModal(){
+    const overlay = document.getElementById('imgModalOverlay');
+    if (!overlay) return;
+    const img = document.getElementById('imgModalImg');
+    overlay.style.display = 'none';
+    if (img) img.src = '';
+  }
+
+  /* Styles for image modal */
+  const styleEl = document.createElement('style');
+  styleEl.innerHTML = `
+  .img-modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.65); display:flex; align-items:center; justify-content:center; z-index:99999; }
+  .img-modal{ position:relative; max-width:90vw; max-height:85vh; padding:12px; border-radius:10px; display:flex; align-items:center; justify-content:center; }
+  .img-modal img{ max-width:90vw; max-height:85vh; object-fit:contain; display:block; border-radius:8px; }
+  .img-modal-close{ position:absolute; top:-10px; right:-10px; background:#fff; border-radius:50%; width:34px; height:34px; border:0; cursor:pointer; font-size:16px; box-shadow:0 4px 14px rgba(0,0,0,0.25); }
+  `;
+  document.head.appendChild(styleEl);
 
 document.addEventListener('DOMContentLoaded', async function() {
 
