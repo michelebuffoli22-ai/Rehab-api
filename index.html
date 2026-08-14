@@ -1253,7 +1253,8 @@
       rep: block.querySelector('.ex-input-rep')?.value || '',
       rec: block.querySelector('.ex-input-rec')?.value || '',
       link: block.querySelector('.ex-input-link')?.value || '',
-      note: block.querySelector('.ex-input-note')?.value || ''
+      note: block.querySelector('.ex-input-note')?.value || '',
+      immagine: block.querySelector('.ex-input-image')?.value || ''
     }));
   }
 
@@ -1570,8 +1571,14 @@ function aggiungiEsercizioDaNotion(id, button){
         exercise.ripetizioni,
         exercise.recupero,
         exercise.video,
-        exercise.note
+    exercise.note,
+    exercise.immagine || ''
     );
+
+  // Debug: log when adding Single Leg Hop from Notion
+  try {
+    if (exercise.nome === 'Single Leg Hop') console.log({ nome: exercise.nome, immagine: exercise.immagine });
+  } catch(e) {}
 
     aggiorna();
 
@@ -1608,7 +1615,7 @@ function esercizioGiaPresente(nome){
     aggiorna();
   }
 
-  function aggiungiEsercizioStrutturato(nome, ser, rep, rec, link, note) {
+  function aggiungiEsercizioStrutturato(nome, ser, rep, rec, link, note, immagine) {
     syncExCountFromDom();
     exCount++;
     const id = exCount;
@@ -1648,12 +1655,13 @@ function esercizioGiaPresente(nome){
         <label>Note specifiche ed esecuzione</label>
         <textarea class="ex-input-note" placeholder="Es. Mantieni la schiena ben aderente..." oninput="aggiorna()">${escapeHtml(note)}</textarea>
       </div>
+      <input type="hidden" class="ex-input-image" value="${escapeAttr(immagine || '')}">
     `;
     container.appendChild(block);
   }
 
   function creaEsercizioVuotoForm() {
-    aggiungiEsercizioStrutturato("", "3", "10", "60s", "", "");
+    aggiungiEsercizioStrutturato("", "3", "10", "60s", "", "", "");
     aggiorna();
   }
 
