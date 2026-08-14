@@ -592,9 +592,6 @@
   }
   .s-reps { display: flex; gap: 5px; padding: 0 14px 10px; flex-wrap: wrap; }
 
-  .s-ex-image { padding: 0 14px 10px; display:flex; justify-content:center; }
-  .s-ex-image img { max-width:100%; height:96px; object-fit:cover; border-radius:8px; display:block; }
-
 
 .results-label {
     font-size: 11px;
@@ -1256,7 +1253,8 @@
       rep: block.querySelector('.ex-input-rep')?.value || '',
       rec: block.querySelector('.ex-input-rec')?.value || '',
       link: block.querySelector('.ex-input-link')?.value || '',
-      note: block.querySelector('.ex-input-note')?.value || ''
+      note: block.querySelector('.ex-input-note')?.value || '',
+      immagine: block.querySelector('.ex-input-image')?.value || ''
     }));
   }
 
@@ -1569,7 +1567,8 @@ function aggiungiEsercizioDaNotion(id, button){
         exercise.ripetizioni,
         exercise.recupero,
         exercise.video,
-        exercise.note
+    exercise.note,
+    exercise.immagine || ''
     );
 
     aggiorna();
@@ -1607,7 +1606,7 @@ function esercizioGiaPresente(nome){
     aggiorna();
   }
 
-  function aggiungiEsercizioStrutturato(nome, ser, rep, rec, link, note) {
+  function aggiungiEsercizioStrutturato(nome, ser, rep, rec, link, note, immagine) {
     syncExCountFromDom();
     exCount++;
     const id = exCount;
@@ -1647,12 +1646,13 @@ function esercizioGiaPresente(nome){
         <label>Note specifiche ed esecuzione</label>
         <textarea class="ex-input-note" placeholder="Es. Mantieni la schiena ben aderente..." oninput="aggiorna()">${escapeHtml(note)}</textarea>
       </div>
+      <input type="hidden" class="ex-input-image" value="${escapeAttr(immagine || '')}">
     `;
     container.appendChild(block);
   }
 
   function creaEsercizioVuotoForm() {
-    aggiungiEsercizioStrutturato("", "3", "10", "60s", "", "");
+    aggiungiEsercizioStrutturato("", "3", "10", "60s", "", "", "");
     aggiorna();
   }
 
@@ -1768,11 +1768,6 @@ function esercizioGiaPresente(nome){
       let videoBtn = isSafeUrl(link) ? `<a href="${escapeAttr(link)}" target="_blank" rel="noopener noreferrer" class="s-video-btn">▶ Video</a>` : '';
       let noteBlock = note ? `<div class="s-note"><strong>📌 Focus Esecuzione:</strong>${escapeHtml(note)}</div>` : '';
 
-      let imgBlock = '';
-      if (esercizio.immagine && isSafeUrl(esercizio.immagine)) {
-        imgBlock = `<div class="s-ex-image"><img src="${escapeAttr(esercizio.immagine)}" alt=""></div>`;
-      }
-
       // Controllo se i campi Ripetizioni o Recupero contengono i secondi nei formati previsti
       let secRep = estraiSecondi(rep);
       let secRec = estraiSecondi(rec);
@@ -1791,6 +1786,8 @@ function esercizioGiaPresente(nome){
         htmlRep += `<div class="s-rep"><span class="s-rep-label">Recupero</span><span class="s-rep-value">${escapeHtml(rec)}</span></div>`;
       }
 
+      console.log({ nome: esercizio.name, immagine: esercizio.immagine });
+
       container.innerHTML += `
         <div class="s-ex">
           <div class="s-ex-top">
@@ -1800,7 +1797,6 @@ function esercizioGiaPresente(nome){
             </div>
             ${videoBtn}
           </div>
-          ${imgBlock}
           <div class="s-reps">
             ${htmlRep}
           </div>
