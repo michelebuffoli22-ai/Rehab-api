@@ -1944,7 +1944,39 @@ function renderDettaglioEsercizio(id){
   function esportaWhatsApp() {
     const nome = document.getElementById('pNome').value || 'Paziente';
     aggiorna();
-    const schedaHtml = document.getElementById('scheda').outerHTML;
+    let schedaHtml = document.getElementById('scheda').outerHTML;
+    // Create a temporary DOM from schedaHtml and inject only in the exported copy
+    try {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(schedaHtml, 'text/html');
+      const esercizi = raccogliEsercizi();
+      const exNodes = doc.querySelectorAll('.s-ex');
+
+      exNodes.forEach((node, i) => {
+        try {
+          const imgUrl = esercizi[i]?.immagine;
+          const top = node.querySelector('.s-ex-top');
+          if (imgUrl && isSafeUrl(imgUrl)) {
+            if (top && !top.querySelector('.s-ex-image-link')) {
+              const a = doc.createElement('a');
+              a.className = 's-ex-image-link';
+              a.href = imgUrl;
+              a.target = '_blank';
+              a.rel = 'noopener noreferrer';
+              a.textContent = '🖼️ Immagine';
+              top.appendChild(a);
+            }
+          }
+        } catch(e) { /* ignore per-item errors */ }
+      });
+
+      // Replace schedaHtml with the modified copy (only for export)
+      const modifiedScheda = doc.getElementById('scheda');
+      const links = modifiedScheda ? modifiedScheda.querySelectorAll('.s-ex-image-link') : [];
+      if (modifiedScheda) {
+        schedaHtml = modifiedScheda.outerHTML;
+      }
+    } catch(e) { }
     const stiliCss = document.querySelector('style').innerHTML;
 
     const fileContent = `<!DOCTYPE html>
