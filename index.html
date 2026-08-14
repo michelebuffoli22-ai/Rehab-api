@@ -848,6 +848,14 @@
     .s-video-btn { display: none !important; }
   }
 
+  /* Print-only image container (hidden on screen) */
+  .s-ex-print-image { display: none; }
+
+  @media print {
+    .s-ex-print-image { display: block; padding: 6px 14px; text-align: center; }
+    .s-ex-print-image img { width: 100%; max-height: 220px; object-fit: contain; display: block; margin: 0 auto; }
+  }
+
   @media (max-width: 860px) {
     .topbar {
       position: static;
@@ -1889,7 +1897,49 @@ function renderDettaglioEsercizio(id){
 
 }
 
-  function stampaPDF() { window.print(); }
+  async function stampaPDF() {
+    // Deterministic print flow: inject print-only images, wait for them to load and render, then print.
+    try {
+      if (window._isPrinting) return;
+      window._isPrinting = true;
+
+      // Ensure images are injected
+      if (typeof window.addPrintImages === 'function') window.addPrintImages();
+
+      // Collect print-only images just injected
+      const imgs = Array.from(document.querySelectorAll('.s-ex-print-image img'));
+
+      // Wait for all images to load (or error)
+      await Promise.all(imgs.map(img => new Promise(res => {
+        if (img.complete) return res();
+        img.addEventListener('load', () => res());
+        img.addEventListener('error', () => res());
+      })));
+
+      // Wait two animation frames to ensure layout/render
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+      // Setup a promise that resolves on afterprint (or fallback timeout)
+      const printDone = new Promise(res => {
+        const onAfter = () => { res(); };
+        window.addEventListener('afterprint', onAfter, { once: true });
+        // Fallback in case afterprint doesn't fire
+        setTimeout(res, 3000);
+      });
+
+      // Trigger print
+      window.print();
+
+      // Wait until print is done
+      await printDone;
+
+    } catch (e) {
+      console.error(e);
+    } finally {
+      try { if (typeof window.removePrintImages === 'function') window.removePrintImages(); } catch(e){}
+      window._isPrinting = false;
+    }
+  }
 
   function esportaWhatsApp() {
     const nome = document.getElementById('pNome').value || 'Paziente';
@@ -1987,6 +2037,47 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 
   // caricaEndpointNotion();
+
+  // --- Print-only image injection ---
+  function addPrintImages() {
+    try {
+      const esercizi = raccogliEsercizi();
+      const exNodes = document.querySelectorAll('#sExContainer .s-ex');
+      exNodes.forEach((node, i) => {
+        const imgUrl = esercizi[i]?.immagine;
+        if (imgUrl && isSafeUrl(imgUrl)) {
+          if (!node.querySelector('.s-ex-print-image')) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 's-ex-print-image';
+            const img = document.createElement('img');
+            img.src = imgUrl;
+            wrapper.appendChild(img);
+            const reps = node.querySelector('.s-reps');
+            if (reps) node.insertBefore(wrapper, reps);
+            else node.appendChild(wrapper);
+          }
+        }
+      });
+    } catch(e) { console.error(e); }
+  }
+
+  function removePrintImages() {
+    document.querySelectorAll('.s-ex-print-image').forEach(el => el.remove());
+  }
+
+  window.addEventListener('beforeprint', addPrintImages);
+  window.addEventListener('afterprint', removePrintImages);
+  // Fallback for browsers supporting matchMedia
+  if (window.matchMedia) {
+    const mq = window.matchMedia('print');
+    mq.addEventListener && mq.addEventListener('change', function(m) {
+      if (m.matches) addPrintImages(); else removePrintImages();
+    });
+  }
+  // Expose for programmatic print flow
+  window.addPrintImages = addPrintImages;
+  window.removePrintImages = removePrintImages;
+  window._isPrinting = false;
 
   await cercaEserciziNotion();
 
