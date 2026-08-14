@@ -12,6 +12,22 @@ function getUrl(prop) {
   return prop?.url || "";
 }
 
+function getImageUrl(prop) {
+  const file = prop?.files?.[0];
+
+  if (!file) return "";
+
+  if (file.type === "external") {
+    return file.external?.url || "";
+  }
+
+  if (file.type === "file") {
+    return file.file?.url || "";
+  }
+
+  return "";
+}
+
 function getSelect(prop) {
   return prop?.select?.name || "";
 }
@@ -43,7 +59,7 @@ export default async function handler(req, res) {
 
   video: getUrl(p["Video Link"]),
 
-  immagine: getUrl(p["Immagine Url"]),
+  immagine: getImageUrl(p["Immagine"]),
 
   distretto: getMultiSelect(p["Distretto"]),
 
