@@ -1296,6 +1296,18 @@
     const categoria = normalizzaListaNotion(raw['Categoria'] || raw.categoria);
     const strumenti = normalizzaListaNotion(raw['Strumenti'] || raw.strumenti);
     const difficolta = raw['Difficoltà'] || raw.difficolta || '';
+    // Gestione nuova proprietà Immagine (Notion Files & media)
+    const immagineProp = raw['Immagine'] || raw.Immagine || raw['Immagine Url'] || raw.immagine || raw.immagineUrl || raw.image || raw.imageUrl || null;
+    let immagine = '';
+    if (Array.isArray(immagineProp) && immagineProp.length) {
+      const f = immagineProp[0];
+      immagine = (f && f.file && f.file.url) || (f && f.external && f.external.url) || f.url || '';
+    } else if (immagineProp && typeof immagineProp === 'object') {
+      const f = immagineProp;
+      immagine = (f.file && f.file.url) || (f.external && f.external.url) || f.url || '';
+    } else if (typeof immagineProp === 'string' && immagineProp.trim()) {
+      immagine = immagineProp.trim();
+    }
     return {
       id: raw.id,
       nome,
@@ -1308,6 +1320,7 @@
       categoria,
       strumenti,
       difficolta,
+      immagine,
       url: raw.url || raw.notionUrl || ''
     };
   }
@@ -1366,6 +1379,11 @@
       const data = await response.json();
       const rows = Array.isArray(data) ? data : (data.exercises || data.results || []);
       notionCache = rows.map(normalizzaEsercizioNotion);
+      // Debug: log immagine per "Single Leg Hop" quando carichiamo da Notion
+      try {
+        const single = notionCache.find(e => e.nome === 'Single Leg Hop');
+        if (single) console.log({ nome: single.nome, immagine: single.immagine });
+      } catch(e) {}
       allExercises = [...notionCache];
       renderRisultati();
       setNotionStatus(notionCache.length ? `${notionCache.length} risultati.` : 'Nessun esercizio trovato con questi filtri.');
