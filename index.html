@@ -813,14 +813,17 @@
       page-break-inside: avoid;
     }
 
-    /* Riduzioni verticali moderate per la stampa */
-    .s-header { padding: 18px 16px 12px !important; }
-    .s-patient-band { margin: 8px 14px 0 !important; padding: 8px 12px !important; }
-    .s-cat-row { padding: 8px 12px 2px !important; gap: 6px !important; }
-    .s-exercises { padding: 8px 12px !important; gap: 6px !important; }
-    .s-note { margin: 6px 12px 10px !important; padding: 8px 10px !important; }
-    .s-general { margin: 8px 12px 12px !important; padding: 10px 12px !important; }
-    .s-footer { padding: 10px 14px !important; gap: 6px !important; }
+    /* Riduzioni verticali compatte per la stampa */
+    .s-header { padding: 14px 16px 9px !important; }
+    .s-patient-band { margin: 6px 14px 0 !important; padding: 8px 12px !important; }
+    .s-cat-row { padding: 6px 12px 2px !important; gap: 6px !important; }
+    .s-exercises { padding: 6px 12px !important; gap: 5px !important; }
+    .s-ex-top { padding: 8px 12px 4px !important; }
+    .s-reps { padding: 0 12px 6px !important; gap: 3px !important; }
+    .s-rep { padding: 4px 3px !important; }
+    .s-note { margin: 3px 12px 6px !important; padding: 6px 8px !important; }
+    .s-general { margin: 6px 12px 10px !important; padding: 8px 10px !important; }
+    .s-footer { padding: 8px 12px !important; gap: 4px !important; }
 
     .s-header, .s-footer { background: #f1f5f9 !important; border-color: #cbd5e1 !important; }
     .s-name, .s-ex-name, .s-rep-value { color: black !important; }
@@ -852,8 +855,8 @@
   .s-ex-print-image { display: none; }
 
   @media print {
-    .s-ex-print-image { display: block; padding: 6px 14px; text-align: center; }
-    .s-ex-print-image img { width: 100%; max-height: 220px; object-fit: contain; display: block; margin: 0 auto; }
+    .s-ex-print-image { display: block; padding: 2px 12px 4px; text-align: center; }
+    .s-ex-print-image img { width: 100%; max-height: 180px; object-fit: contain; display: block; margin: 0 auto; }
   }
 
   @media (max-width: 860px) {
